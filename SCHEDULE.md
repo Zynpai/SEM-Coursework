@@ -1,8 +1,6 @@
-Schedule
-========
-The schedules of team meetings throughout the weeks
-Schedule for week 2:
---------------------
+# Schedule
+## The schedules of team meetings throughout the weeks
+### Schedule for week 2:
 Wendesday 12 pm JKCC - Sprint planning session
 Friday 11 am JKCC - Daily stand-up
 Saturday 1 pm Discord - Sprint review and retrospective
