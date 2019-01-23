@@ -1,4 +1,4 @@
-#Project Backlog
+# Project Backlog
 
 1. Code of conduct (est 1 day) DONE
 2. Set up Intelij
