@@ -1,4 +1,13 @@
 # SEM-Coursework
 
+Team Members
 
-*description goes here*
+William Smallwood = Product Owner
+
+Viktor Malych = Scrum Master
+
+Zyrynyl Melendres
+
+Lucas Momsonis
+
+Discord Link = discord.gg/vqns8f5
