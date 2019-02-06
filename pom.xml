@@ -6,7 +6,15 @@
 
     <groupId>com.napier.semc</groupId>
     <artifactId>semCoursework</artifactId>
-    <version>0.1.0.1</version>
+    <version>0.1.0.2</version>
+
+    <dependencies>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.44</version>
+        </dependency>
+    </dependencies>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
