@@ -3,8 +3,7 @@ sudo: required
 language: java
 
 services:
-- docker
+  - docker
 
 after_success:
-- docker build -t semCoursework .
-- docker run semCoursework
+  - docker-compose up --abort-on-container-exit
