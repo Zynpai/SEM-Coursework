@@ -1,4 +1,4 @@
-# USE CASE: 8 Produce a Report of Provide the number of people who speak the following the following languages(Chinese, English, Hindi, Spanish, Arabic) from greatest number to smallest, including the percentage of the world population.
+# USE CASE: 8 Produce a Report of the number of people who speak the following the following languages(Chinese, English, Hindi, Spanish, Arabic) from greatest number to smallest, including the percentage of the world population.
 
 ## CHARACTERISTIC INFORMATION
 
