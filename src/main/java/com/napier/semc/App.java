@@ -145,6 +145,82 @@ public class App
     }
 
     /**
+     * Gets continent populations
+     * @param region The continent from which to take the countries.
+     * @return A list of employees and salaries, or null if there is an error.
+     */
+    public ArrayList<Country> getRegionPopulations(String region)
+    {
+        try
+        {
+            //Create an SQL statement
+            Statement stmt = con.createStatement();
+            //Create string for SQL statement
+            String strSelect =
+                    "SELECT country.Code, country.Name, country.Population "
+                            + "FROM country "
+                            + "WHERE country.Region = '" + region + "' ";
+            //Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            //Extract employee information
+            ArrayList<Country> countries = new ArrayList<Country>();
+            while (rset.next())
+            {
+                Country country = new Country();
+                country.code = rset.getString("country.Code");
+                country.name = rset.getString("country.Name");
+                country.population = rset.getInt("country.Population");
+                countries.add(country);
+            }
+            return countries;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get population details");
+            return null;
+        }
+    }
+
+    /**
+     * Gets continent populations
+     * @param countryName The continent from which to take the countries.
+     * @return A list of employees and salaries, or null if there is an error.
+     */
+    public ArrayList<Country> getCountryPopulations(String countryName)
+    {
+        try
+        {
+            //Create an SQL statement
+            Statement stmt = con.createStatement();
+            //Create string for SQL statement
+            String strSelect =
+                    "SELECT country.Code, country.Name, country.Population "
+                            + "FROM country "
+                            + "WHERE country.Name = '" + countryName + "' ";
+            //Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            //Extract employee information
+            ArrayList<Country> countries = new ArrayList<Country>();
+            while (rset.next())
+            {
+                Country country = new Country();
+                country.code = rset.getString("country.Code");
+                country.name = rset.getString("country.Name");
+                country.population = rset.getInt("country.Population");
+                countries.add(country);
+            }
+            return countries;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get population details");
+            return null;
+        }
+    }
+
+    /**
      * Prints total population of given countries
      * @param countries The list of countries to print.
      */
@@ -155,7 +231,6 @@ public class App
         //Loop over all countries in the list
         for (Country country : countries)
         {
-            System.out.println(country.name + " " + country.population);
             totalPopulation = totalPopulation + country.population;
         }
         System.out.println("Total population is " + totalPopulation);
@@ -188,6 +263,30 @@ public class App
 
         //Print total population
         a.printTotalPopulationCountries(countries);
+
+        //Clear countries
+        countries.clear();
+
+        System.out.println("Region");
+        //Get all countries in the region
+        countries = a.getRegionPopulations("Eastern Europe");
+
+        //Print total population
+        a.printTotalPopulationCountries(countries);
+
+
+        //Clear countries
+        countries.clear();
+
+        System.out.println("Country");
+        //Get all countries in the region
+        countries = a.getCountryPopulations("Lithuania");
+
+        //Print total population
+        a.printTotalPopulationCountries(countries);
+
+        //Clear countries
+        countries.clear();
 
         //Disconnect from database
         a.disconnect();
