@@ -1,5 +1,5 @@
 @startuml
-actor Organization as Org
+actor Researcher as Org
 
 Rectangle Database as DB
 
