@@ -32,7 +32,7 @@ public class Country {
     //Country head of state
     public String headOfState;
     //Country capital
-    public String capital;
+    public int capital;
     //Country code 2
     public String code2;
 }
