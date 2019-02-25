@@ -86,6 +86,44 @@ public class App
                             + "FROM country";
             //Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
+            //Extract country information
+            ArrayList<Country> countries = new ArrayList<Country>();
+            while (rset.next())
+            {
+                Country country = new Country();
+                country.code = rset.getString("country.Code");
+                country.name = rset.getString("country.Name");
+                country.population = rset.getInt("country.Population");
+                countries.add(country);
+            }
+            return countries;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get population details");
+            return null;
+        }
+    }
+
+    /**
+     * Gets continent populations
+     * @param continent The continent from which to take the countries.
+     * @return A list of employees and salaries, or null if there is an error.
+     */
+    public ArrayList<Country> getContinentPopulations(String continent)
+    {
+        try
+        {
+            //Create an SQL statement
+            Statement stmt = con.createStatement();
+            //Create string for SQL statement
+            String strSelect =
+                    "SELECT country.Code, country.Name, country.Population "
+                            + "FROM country "
+                            + "WHERE country.Continent = '" + continent + "' ";
+            //Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
             //Extract employee information
             ArrayList<Country> countries = new ArrayList<Country>();
             while (rset.next())
@@ -110,14 +148,15 @@ public class App
      * Prints total population of given countries
      * @param countries The list of countries to print.
      */
-    public void printTotalPopulation(ArrayList<Country> countries)
+    public void printTotalPopulationCountries(ArrayList<Country> countries)
     {
         //Total population
-        int totalPopulation = 0;
-        // Loop over all employees in the list
+        long totalPopulation = 0;
+        //Loop over all countries in the list
         for (Country country : countries)
         {
-            totalPopulation += country.population;
+            System.out.println(country.name + " " + country.population);
+            totalPopulation = totalPopulation + country.population;
         }
         System.out.println("Total population is " + totalPopulation);
     }
@@ -133,11 +172,22 @@ public class App
         //Connect to database
         a.connect();
 
+        System.out.println("World");
         //Get all countries in the world
         ArrayList<Country> countries = a.getWorldPopulations();
 
         //Print total population
-        a.printTotalPopulation(countries);
+        a.printTotalPopulationCountries(countries);
+
+        //Clear countries
+        countries.clear();
+
+        System.out.println("Continent");
+        //Get all countries in the continent
+        countries = a.getContinentPopulations("Asia");
+
+        //Print total population
+        a.printTotalPopulationCountries(countries);
 
         //Disconnect from database
         a.disconnect();
