@@ -72,7 +72,7 @@ public class App
 
     /**
      * Gets world populations
-     * @return A list of employees and salaries, or null if there is an error.
+     * @return A list of countries and populations, or null if there is an error.
      */
     public ArrayList<Country> getWorldPopulations()
     {
@@ -109,7 +109,7 @@ public class App
     /**
      * Gets continent populations
      * @param continent The continent from which to take the countries.
-     * @return A list of employees and salaries, or null if there is an error.
+     * @return A list of countries and populations, or null if there is an error.
      */
     public ArrayList<Country> getContinentPopulations(String continent)
     {
@@ -124,7 +124,7 @@ public class App
                             + "WHERE country.Continent = '" + continent + "' ";
             //Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
-            //Extract employee information
+            //Extract country information
             ArrayList<Country> countries = new ArrayList<Country>();
             while (rset.next())
             {
@@ -145,9 +145,9 @@ public class App
     }
 
     /**
-     * Gets continent populations
-     * @param region The continent from which to take the countries.
-     * @return A list of employees and salaries, or null if there is an error.
+     * Gets region populations
+     * @param region The region from which to take the countries.
+     * @return A list of countries and populations, or null if there is an error.
      */
     public ArrayList<Country> getRegionPopulations(String region)
     {
@@ -162,7 +162,7 @@ public class App
                             + "WHERE country.Region = '" + region + "' ";
             //Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
-            //Extract employee information
+            //Extract country information
             ArrayList<Country> countries = new ArrayList<Country>();
             while (rset.next())
             {
@@ -183,9 +183,9 @@ public class App
     }
 
     /**
-     * Gets continent populations
-     * @param countryName The continent from which to take the countries.
-     * @return A list of employees and salaries, or null if there is an error.
+     * Gets country populations
+     * @param countryName The country.
+     * @return A list of countries and populations, or null if there is an error.
      */
     public ArrayList<Country> getCountryPopulations(String countryName)
     {
@@ -200,7 +200,7 @@ public class App
                             + "WHERE country.Name = '" + countryName + "' ";
             //Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
-            //Extract employee information
+            //Extract country information
             ArrayList<Country> countries = new ArrayList<Country>();
             while (rset.next())
             {
@@ -221,8 +221,84 @@ public class App
     }
 
     /**
+     * Gets district populations
+     * @param district The district from which to take the countries.
+     * @return A list of cities and populations, or null if there is an error.
+     */
+    public ArrayList<City> getDistrictPopulations(String district)
+    {
+        try
+        {
+            //Create an SQL statement
+            Statement stmt = con.createStatement();
+            //Create string for SQL statement
+            String strSelect =
+                    "SELECT city.ID, city.Name, city.Population "
+                            + "FROM city "
+                            + "WHERE city.District = '" + district + "' ";
+            //Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            //Extract city information
+            ArrayList<City> cities = new ArrayList<City>();
+            while (rset.next())
+            {
+                City city = new City();
+                city.ID = rset.getInt("city.ID");
+                city.name = rset.getString("city.Name");
+                city.population = rset.getInt("city.Population");
+                cities.add(city);
+            }
+            return cities;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get population details");
+            return null;
+        }
+    }
+
+    /**
+     * Gets city populations
+     * @param cityName The city.
+     * @return A list of cities and populations, or null if there is an error.
+     */
+    public ArrayList<City> getCityPopulations(String cityName)
+    {
+        try
+        {
+            //Create an SQL statement
+            Statement stmt = con.createStatement();
+            //Create string for SQL statement
+            String strSelect =
+                    "SELECT city.ID, city.Name, city.Population "
+                            + "FROM city "
+                            + "WHERE city.Name = '" + cityName + "' ";
+            //Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            //Extract city information
+            ArrayList<City> cities = new ArrayList<City>();
+            while (rset.next())
+            {
+                City city = new City();
+                city.ID = rset.getInt("city.ID");
+                city.name = rset.getString("city.Name");
+                city.population = rset.getInt("city.Population");
+                cities.add(city);
+            }
+            return cities;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get population details");
+            return null;
+        }
+    }
+
+    /**
      * Prints total population of given countries
-     * @param countries The list of countries to print.
+     * @param countries The list of countries.
      */
     public void printTotalPopulationCountries(ArrayList<Country> countries)
     {
@@ -232,6 +308,22 @@ public class App
         for (Country country : countries)
         {
             totalPopulation = totalPopulation + country.population;
+        }
+        System.out.println("Total population is " + totalPopulation);
+    }
+
+    /**
+     * Prints total population of given cities
+     * @param cities The list of cities.
+     */
+    public void printTotalPopulationCities(ArrayList<City> cities)
+    {
+        //Total population
+        long totalPopulation = 0;
+        //Loop over all countries in the list
+        for (City city : cities)
+        {
+            totalPopulation = totalPopulation + city.population;
         }
         System.out.println("Total population is " + totalPopulation);
     }
@@ -257,7 +349,7 @@ public class App
         //Clear countries
         countries.clear();
 
-        System.out.println("Continent");
+        System.out.println("Continent: Asia");
         //Get all countries in the continent
         countries = a.getContinentPopulations("Asia");
 
@@ -267,19 +359,18 @@ public class App
         //Clear countries
         countries.clear();
 
-        System.out.println("Region");
+        System.out.println("Region: Eastern Europe");
         //Get all countries in the region
         countries = a.getRegionPopulations("Eastern Europe");
 
         //Print total population
         a.printTotalPopulationCountries(countries);
 
-
         //Clear countries
         countries.clear();
 
-        System.out.println("Country");
-        //Get all countries in the region
+        System.out.println("Country: Lithuania");
+        //Get all countries in the country
         countries = a.getCountryPopulations("Lithuania");
 
         //Print total population
@@ -287,6 +378,26 @@ public class App
 
         //Clear countries
         countries.clear();
+
+        System.out.println("District: Scotland");
+        //Get all cities in the district
+        ArrayList<City> cities = a.getDistrictPopulations("Scotland");
+
+        //Print total population
+        a.printTotalPopulationCities(cities);
+
+        //Clear cities
+        cities.clear();
+
+        System.out.println("City: Klaipeda");
+        //Get all cities in the district
+        cities = a.getDistrictPopulations("Klaipeda");
+
+        //Print total population
+        a.printTotalPopulationCities(cities);
+
+        //Clear cities
+        cities.clear();
 
         //Disconnect from database
         a.disconnect();
