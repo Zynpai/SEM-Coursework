@@ -296,6 +296,74 @@ public class App
         }
     }
 
+    public ArrayList<City> getWorldTopCapitalCities()
+    {
+        try
+        {
+            //Create an SQL statement
+            Statement stmt = con.createStatement();
+            //Create string for SQL statement
+            String strSelect =
+                        "SELECT city.ID, city.Name, city.CountryCode, city.Population "
+                            + "FROM city "
+                            + "INNER JOIN country ON city.ID = country.capital "
+                            + "ORDER BY city.Population DESC";
+            //Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            //Extract city information
+            ArrayList<City> cities = new ArrayList<City>();
+            while (rset.next())
+            {
+                City city = new City();
+                city.ID = rset.getInt("city.ID");
+                city.name = rset.getString("city.Name");
+                city.countryCode = rset.getString("city.CountryCode");
+                city.population = rset.getInt("city.Population");
+                cities.add(city);
+            }
+            return cities;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get top country details");
+            return null;
+        }
+    }
+
+    public Country getCountry(String countryCode)
+    {
+        try
+        {
+            Statement stmt = con.createStatement();
+            //Create string for SQL statement
+            String strSelect =
+                    "SELECT country.Name, country.Code "
+                        +"FROM country "
+                        +"WHERE country.Code = '" + countryCode + "'";
+            //Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            //Extract city information
+            if (rset.next())
+            {
+                Country country = new Country();
+                country.code = rset.getString("country.Code");
+                country.name = rset.getString("country.Name");
+                return country;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        catch(Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get Country");
+            return null;
+        }
+    }
+
     /**
      * Prints total population of given countries
      * @param countries The list of countries.
@@ -326,6 +394,21 @@ public class App
             totalPopulation = totalPopulation + city.population;
         }
         System.out.println("Total population is " + totalPopulation);
+    }
+
+    public void printWorldTopCapitalCities(ArrayList<City> cities, int topNumber)
+    {
+        Country country;
+        for (City city : cities)
+        {
+            if (topNumber > 0) {
+                country = getCountry(city.countryCode);
+                System.out.println("Name:" + city.name);
+                System.out.println("Population:" + city.population);
+                System.out.println("Country:" + country.name);
+                topNumber--;
+            }
+        }
     }
 
     /**
@@ -396,6 +479,10 @@ public class App
         //Print total population
         a.printTotalPopulationCities(cities);
 
+        System.out.println("Top 10 Capital in the World");
+        //Get all top 10 capital cities in the world
+        cities = a.getWorldTopCapitalCities();
+        a.printWorldTopCapitalCities(cities, 10);
         //Clear cities
         cities.clear();
 
