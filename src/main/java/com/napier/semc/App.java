@@ -510,26 +510,43 @@ public class App
         long totalPopulation = 0; //Total population
         long cityPopulation = 0;  //Population living in cities
         long ruralPopulation = 0; //Population living out of cities
+        String name = null;
         ArrayList<City> cities;
 
         if (worldBool)
         {
             countries = getWorldPopulations();
-            for (Country country : countries)
-            {
-                totalPopulation += country.population;
-                cities = getCities(country.code);
-                for (City city : cities)
-                {
-                    cityPopulation += city.population;
-                }
-                ruralPopulation = totalPopulation - cityPopulation;
-            }
-            System.out.println("Name: World");
-            System.out.println("Total population: " + totalPopulation );
-            System.out.println("Population in cities: " + cityPopulation + "(" + (100 / totalPopulation * cityPopulation) + "%)");
-            System.out.println("Population not in cities: " + ruralPopulation + "(" + (100 / totalPopulation * ruralPopulation) + "%)");
+            name = "World";
         }
+        if (continentBool)
+        {
+            countries = getContinentPopulations(continentName);
+            name = continentName;
+        }
+        if (regionBool)
+        {
+            countries = getRegionPopulations(regionName);
+            name = regionName;
+        }
+        if (countryBool)
+        {
+            countries = getCountryPopulations(countryName);
+            name = countryName;
+        }
+        for (Country country : countries)
+        {
+            totalPopulation += country.population;
+            cities = getCities(country.code);
+            for (City city : cities)
+            {
+                cityPopulation += city.population;
+            }
+            ruralPopulation = totalPopulation - cityPopulation;
+        }
+        System.out.println("Name: " + name);
+        System.out.println("Total population: " + totalPopulation );
+        System.out.println("Population in cities: " + cityPopulation + "(" + (100f / totalPopulation * cityPopulation) + "%)");
+        System.out.println("Population not in cities: " + ruralPopulation + "(" + (100f / totalPopulation * ruralPopulation) + "%)");
     }
 
     /**
@@ -666,8 +683,36 @@ public class App
         //World report
         worldBool = true;
         a.printPopulationReport(countries, continent, region, country, worldBool, continentBool, regionBool, countryBool);
-        //Clear countries
+        //Reset values
         worldBool = false;
+        countries.clear();
+
+        //Continent report
+        continent = "Europe";
+        continentBool = true;
+        a.printPopulationReport(countries, continent, region, country, worldBool, continentBool, regionBool, countryBool);
+        //Reset values
+        continentBool = false;
+        continent = null;
+        countries.clear();
+
+        //Region report
+        region = "Caribbean";
+        regionBool = true;
+        a.printPopulationReport(countries, continent, region, country, worldBool, continentBool, regionBool, countryBool);
+        //Clear cities
+        regionBool = false;
+        region = null;
+        countries.clear();
+
+        //Region report
+        country = "Lithuania";
+        countryBool = true;
+        a.printPopulationReport(countries, continent, region, country, worldBool, continentBool, regionBool, countryBool);
+        //Clear cities
+        countryBool = false;
+        country = null;
+        countries.clear();
 
         //Disconnect from database
         a.disconnect();
