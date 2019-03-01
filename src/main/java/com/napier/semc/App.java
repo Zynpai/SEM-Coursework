@@ -455,26 +455,86 @@ public class App
         }
     }
 
+    /**
+     * Gets cities in a country
+     * @param countryCode How the city calls the country
+     * @return All the cities in a country
+     */
+    public ArrayList<City> getCities(String countryCode)
+    {
+        try
+        {
+            Statement stmt = con.createStatement();
+            //Create string for SQL statement
+            String strSelect =
+                    "SELECT city.ID, city.Name, city.CountryCode, city.District, city.Population "
+                            +"FROM city "
+                            +"WHERE city.CountryCode = '" + countryCode + "'";
+            //Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            //Extract city information
+            ArrayList<City> cities = new ArrayList<City>();
+            while (rset.next())
+            {
+                City city = new City();
+                city.ID = rset.getInt("city.ID");
+                city.name = rset.getString("city.Name");
+                city.countryCode = rset.getString("city.CountryCode");
+                city.district = rset.getString("city.District");
+                city.population = rset.getInt("city.Population");
+                cities.add(city);
+            }
+            return cities;
+        }
+        catch(Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get cities");
+            return null;
+        }
+    }
 
     /**
-     * Prints total population of given countries
-     * @param countries The list of countries.
+     * Prints a population report
+     * @param countries The list of countries
+     * @param continentName The continent where to search
+     * @param regionName  The region where to search
+     * @param countryName The country where to search
+     * @param worldBool The boolean that sees if the user is searching in the world
+     * @param continentBool The boolean that sees if the user is searching in the continent
+     * @param regionBool The boolean that sees if the user is searching in the region
+     * @param countryBool The boolean that sees if the user is searching in the country
      */
-    public void printTotalPopulationCountries(ArrayList<Country> countries)
+    public void printPopulationReport(ArrayList<Country> countries, String continentName, String regionName, String countryName,  boolean worldBool, boolean continentBool, boolean regionBool, boolean countryBool)
     {
-        //Total population
-        long totalPopulation = 0;
-        //Loop over all countries in the list
-        for (Country country : countries)
+        long totalPopulation = 0; //Total population
+        long cityPopulation = 0;  //Population living in cities
+        long ruralPopulation = 0; //Population living out of cities
+        ArrayList<City> cities;
+
+        if (worldBool)
         {
-            totalPopulation = totalPopulation + country.population;
+            countries = getWorldPopulations();
+            for (Country country : countries)
+            {
+                totalPopulation += country.population;
+                cities = getCities(country.code);
+                for (City city : cities)
+                {
+                    cityPopulation += city.population;
+                }
+                ruralPopulation = totalPopulation - cityPopulation;
+            }
+            System.out.println("Name: World");
+            System.out.println("Total population: " + totalPopulation );
+            System.out.println("Population in cities: " + cityPopulation + "(" + (100 / totalPopulation * cityPopulation) + "%)");
+            System.out.println("Population not in cities: " + ruralPopulation + "(" + (100 / totalPopulation * ruralPopulation) + "%)");
         }
-        System.out.println("Total population is " + totalPopulation);
     }
 
     /**
      * Prints total population of given cities
-     * @param cities The list of cities.
+     * @param cities The list of cities
      */
     public void printTotalPopulationCities(ArrayList<City> cities)
     {
@@ -491,9 +551,9 @@ public class App
 
     /**
      * Prints top N capital cities of given n
-     * @param cities The list of cities.
-     * @param continent The continent.
-     * @param region The region.
+     * @param cities The list of cities
+     * @param continent The continent
+     * @param region The region
      * @param topNumber The top N given by user
      * @param worldBool The boolean that sees if the user is searching in the world
      * @param continentBool The boolean that sees if the user is searching in the continent
@@ -541,8 +601,8 @@ public class App
 
     /**
      * Prints the capital cities
-     * @param city The city.
-     * @param country The country.
+     * @param city The city
+     * @param country The country
      */
     public void printCapitalCities(City city, Country country)
     {
@@ -553,7 +613,7 @@ public class App
     }
 
     /**
-     * Main method.
+     * Main method
      */
     public static void main(String[] args)
     {
@@ -567,65 +627,12 @@ public class App
         boolean worldBool = false;
         boolean continentBool = false;
         boolean regionBool = false;
+        boolean countryBool = false;
         String continent = null;
         String region = null;
-
-        System.out.println("World");
-        //Get all countries in the world
-        ArrayList<Country> countries = a.getWorldPopulations();
-
-        //Print total population
-        a.printTotalPopulationCountries(countries);
-
-        //Clear countries
-        countries.clear();
-
-        System.out.println("Continent: Asia");
-        //Get all countries in the continent
-        countries = a.getContinentPopulations("Asia");
-
-        //Print total population
-        a.printTotalPopulationCountries(countries);
-
-        //Clear countries
-        countries.clear();
-
-        System.out.println("Region: Eastern Europe");
-        //Get all countries in the region
-        countries = a.getRegionPopulations("Eastern Europe");
-
-        //Print total population
-        a.printTotalPopulationCountries(countries);
-
-        //Clear countries
-        countries.clear();
-
-        System.out.println("Country: Lithuania");
-        //Get all countries in the country
-        countries = a.getCountryPopulations("Lithuania");
-
-        //Print total population
-        a.printTotalPopulationCountries(countries);
-
-        //Clear countries
-        countries.clear();
-
-        System.out.println("District: Scotland");
-        //Get all cities in the district
-        ArrayList<City> cities = a.getDistrictPopulations("Scotland");
-
-        //Print total population
-        a.printTotalPopulationCities(cities);
-
-        //Clear cities
-        cities.clear();
-
-        System.out.println("City: Klaipeda");
-        //Get all cities in the district
-        cities = a.getDistrictPopulations("Klaipeda");
-
-        //Print total population
-        a.printTotalPopulationCities(cities);
+        String country = null;
+        ArrayList<City> cities = new ArrayList<>();
+        ArrayList<Country> countries = new ArrayList<>();
 
         System.out.println("Top 10 Capitals in the World");
         //Get all top 10 capital cities in the world
@@ -655,6 +662,12 @@ public class App
         region = null;
         cities.clear();
 
+        //Population reports
+        //World report
+        worldBool = true;
+        a.printPopulationReport(countries, continent, region, country, worldBool, continentBool, regionBool, countryBool);
+        //Clear countries
+        worldBool = false;
 
         //Disconnect from database
         a.disconnect();
