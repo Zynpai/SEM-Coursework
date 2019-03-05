@@ -578,6 +578,7 @@ public class App
      */
     public void printTopCapitalCities(ArrayList<City> cities, String continent, String region, int topNumber, boolean worldBool, boolean continentBool, boolean regionBool)
     {
+        int top = 1;
         Country country;
         if (worldBool)
         {
@@ -593,6 +594,7 @@ public class App
         }
         for (City city : cities)
         {
+            System.out.println("Top " + top);
             if (topNumber > 0) {
                 if (worldBool)
                 {
@@ -613,6 +615,37 @@ public class App
                     topNumber--;
                 }
             }
+        }
+    }
+
+    /**
+     * Prints capital cities in the given area in largest to smallest
+     * @param cities The list of cities
+     * @param continent The continent
+     * @param region The region
+     * @param worldBool Sees if the user is searching in world
+     * @param continentBool Sees if the user is searching in the continent
+     * @param regionBool Sees if the user is searching in the region
+     */
+    public void printCapitalCitiesIn(ArrayList<City> cities, String continent, String region, boolean worldBool, boolean continentBool, boolean regionBool)
+    {
+        Country country;
+        if (worldBool)
+        {
+            cities = getWorldTopCapitalCities();
+        }
+        if (continentBool)
+        {
+            cities = getContinentTopCapitalCities(continent);
+        }
+        if (regionBool)
+        {
+            cities = getRegionTopCapitalCities(region);
+        }
+        for (City city : cities)
+        {
+            country = getCountry(city.countryCode);
+            printCapitalCities(city, country);
         }
     }
 
@@ -650,6 +683,14 @@ public class App
         String country = null;
         ArrayList<City> cities = new ArrayList<>();
         ArrayList<Country> countries = new ArrayList<>();
+
+        System.out.println("Capitals in the World");
+        //Get all capital cities in the world
+        worldBool = true;
+        a.printCapitalCitiesIn(cities, continent, region, worldBool, continentBool, regionBool);
+        //Clear cities
+        worldBool = false;
+        cities.clear();
 
         System.out.println("Top 10 Capitals in the World");
         //Get all top 10 capital cities in the world
