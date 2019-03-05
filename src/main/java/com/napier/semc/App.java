@@ -594,8 +594,9 @@ public class App
         }
         for (City city : cities)
         {
-            System.out.println("Top " + top);
+
             if (topNumber > 0) {
+                System.out.println("Top " + top);
                 if (worldBool)
                 {
                     country = getCountry(city.countryCode);
@@ -614,6 +615,7 @@ public class App
                     printCapitalCities(city, country);
                     topNumber--;
                 }
+                top++;
             }
         }
     }
@@ -684,12 +686,32 @@ public class App
         ArrayList<City> cities = new ArrayList<>();
         ArrayList<Country> countries = new ArrayList<>();
 
-        System.out.println("Capitals in the World");
+        System.out.println("Capital Cities in the World");
         //Get all capital cities in the world
         worldBool = true;
         a.printCapitalCitiesIn(cities, continent, region, worldBool, continentBool, regionBool);
         //Clear cities
         worldBool = false;
+        cities.clear();
+
+        System.out.println("Capital Cities in North America");
+        //Get all capital cities in Europe
+        continentBool = true;
+        continent = "North America";
+        a.printCapitalCitiesIn(cities, continent, region, worldBool, continentBool, regionBool);
+        //Clear cities
+        continentBool = false;
+        continent = null;
+        cities.clear();
+
+        System.out.println("Capital Cities in Southern Europe");
+        //Get all capital cities in the world
+        regionBool = true;
+        region = "Southern Europe";
+        a.printCapitalCitiesIn(cities, continent, region, worldBool, continentBool, regionBool);
+        //Clear cities
+        region = null;
+        regionBool = false;
         cities.clear();
 
         System.out.println("Top 10 Capitals in the World");
