@@ -669,8 +669,8 @@ public class App
         continent = null;
         cities.clear();
 
-        System.out.println("Top 10 Capitals in Carribean");
-        //Get all top 10 capital cities in the Carribean
+        System.out.println("Top 10 Capitals in Caribbean");
+        //Get all top 10 capital cities in the Caribbean
         region = "Caribbean";
         regionBool = true;
         a.printTopCapitalCities(cities, continent, region, 10, worldBool, continentBool, regionBool);
