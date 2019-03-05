@@ -12,3 +12,9 @@ Wendesday 12 pm D02
 Friday 11 am D02 
 
 Saturday 1 pm Discord 
+### Schedule for week 4:
+Wendesday 12 pm D02 
+
+Friday 11 am D02 
+
+Saturday 1 pm Discord 
