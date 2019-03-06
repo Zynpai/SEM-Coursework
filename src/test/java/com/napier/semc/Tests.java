@@ -97,7 +97,7 @@ public class Tests {
 
     }
 //getCities
-   /* @Test
+    @Test
     void nulltestgetcities(){
         ArrayList<City> cities = app.getCities(null);
         assertEquals(0, cities.size());
@@ -110,8 +110,8 @@ public class Tests {
     @Test
     void datatestgetcities(){
         ArrayList<City> cities = app.getCities("RUS");
+        System.out.println(cities.size());
 
-
-        }*/
+    }
 
 }
