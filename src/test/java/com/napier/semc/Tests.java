@@ -14,10 +14,11 @@ public class Tests {
     @BeforeAll
     static void init() {
         app = new App();
-        app.connect("localhost:33060");
+        app.connect("db");
+
     }
 
-
+// printPopulationReport
     @Test
     void nulltestpopreport(){
 
@@ -95,6 +96,22 @@ public class Tests {
         app.printPopulationReport(countries, "Europe", "", "Russia", false, false, false, true);
 
     }
+//getCities
+   /* @Test
+    void nulltestgetcities(){
+        ArrayList<City> cities = app.getCities(null);
+        assertEquals(0, cities.size());
+    }
+    @Test
+    void emptytestgetcities(){
+        ArrayList<City> cities = app.getCities("");
+        assertEquals(0, cities.size());
+    }
+    @Test
+    void datatestgetcities(){
+        ArrayList<City> cities = app.getCities("RUS");
 
+
+        }*/
 
 }
