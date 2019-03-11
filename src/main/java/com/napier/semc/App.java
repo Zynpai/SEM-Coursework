@@ -429,7 +429,7 @@ public class App
             Statement stmt = con.createStatement();
             //Create string for SQL statement
             String strSelect =
-                    "SELECT country.Name, country.Code "
+                    "SELECT country.Name, country.Code, country.Population, country.Capital "
                         +"FROM country "
                         +"WHERE country.Code = '" + countryCode + "'";
             //Execute SQL statement
@@ -440,6 +440,8 @@ public class App
                 Country country = new Country();
                 country.code = rset.getString("country.Code");
                 country.name = rset.getString("country.Name");
+                country.population = rset.getInt("country.Population");
+                country.capital = rset.getInt("country.Capital");
                 return country;
             }
             else
