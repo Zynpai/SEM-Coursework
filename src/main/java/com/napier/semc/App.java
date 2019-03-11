@@ -506,9 +506,9 @@ public class App
             Statement stmt = con.createStatement();
             //Create string for SQL statement
             String strSelect =
-                    "SELECT CountryCode, `Language`, IsOfficial, Percentage "
+                    "SELECT countrylanguage.CountryCode, countrylanguage.Language, countrylanguage.IsOfficial, countrylanguage.Percentage "
                             +"FROM countrylanguage "
-                            +"WHERE CountryCode = '" + language + "'";
+                            +"WHERE countrylanguage.Language = '" + language + "'";
             //Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             //Extract city information
@@ -516,11 +516,11 @@ public class App
             while (rset.next())
             {
                 CountryLanguage countryLanguage = new CountryLanguage();
-                countryLanguage.countryCode = rset.getString("CountryCode");
-                countryLanguage.language = rset.getString("Language");
-                if (rset.getString("IsOfficial") == "T") countryLanguage.isOfficial = true;
+                countryLanguage.countryCode = rset.getString("countrylanguage.CountryCode");
+                countryLanguage.language = rset.getString("countrylanguage.Language");
+                if (rset.getString("countrylanguage.IsOfficial") == "T") countryLanguage.isOfficial = true;
                 else countryLanguage.isOfficial = false;
-                countryLanguage.percentage = rset.getDouble("Percentage");
+                countryLanguage.percentage = rset.getDouble("countrylanguage.Percentage");
                 languages.add(countryLanguage);
             }
             return languages;
