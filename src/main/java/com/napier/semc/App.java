@@ -507,7 +507,7 @@ public class App
             //Create string for SQL statement
             String strSelect =
                     "SELECT CountryCode, `Language`, IsOfficial, Percentage "
-                            +"FROM countrylanguages "
+                            +"FROM countrylanguage "
                             +"WHERE CountryCode = '" + language + "'";
             //Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
@@ -533,7 +533,29 @@ public class App
         }
     }
 
+    /**
+     * Prints a language report
+     * @param languages The language to report on
+     */
+    public void printLanguageReport(ArrayList<CountryLanguage> languages)
+    {
+        long totalPopulation = 0;
+        long languagePopulation = 0;
+        Country country;
+        String  languageName = null;
 
+        for (CountryLanguage countryLanguage : languages)
+        {
+            country = getCountry(countryLanguage.countryCode);
+            languageName = countryLanguage.language;
+            totalPopulation += country.population;
+            languagePopulation += country.population / 100 * countryLanguage.percentage;
+        }
+
+        System.out.println("Language: " + languageName);
+        System.out.println("Population who speak it: " + languagePopulation);
+        System.out.println("Percentage of world population: " + (100f / totalPopulation * languagePopulation));
+    }
 
     /**
      * Prints a population report
@@ -691,6 +713,7 @@ public class App
         String country = null;
         ArrayList<City> cities = new ArrayList<>();
         ArrayList<Country> countries = new ArrayList<>();
+        ArrayList<CountryLanguage> languages = new ArrayList<>();
 
         System.out.println("Top 10 Capitals in the World");
         //Get all top 10 capital cities in the world
@@ -754,6 +777,9 @@ public class App
         countryBool = false;
         country = null;
         countries.clear();
+
+        //Language report
+        a.printLanguageReport(a.getCountryLanguages("English"));
 
         //Disconnect from database
         a.disconnect();
