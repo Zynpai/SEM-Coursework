@@ -495,6 +495,47 @@ public class App
     }
 
     /**
+     * Gets languages in countries
+     * @param language The language to look for
+     * @return All the languages in countries
+     */
+    public ArrayList<CountryLanguage> getCountryLanguages(String language)
+    {
+        try
+        {
+            Statement stmt = con.createStatement();
+            //Create string for SQL statement
+            String strSelect =
+                    "SELECT CountryCode, `Language`, IsOfficial, Percentage "
+                            +"FROM countrylanguages "
+                            +"WHERE CountryCode = '" + language + "'";
+            //Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            //Extract city information
+            ArrayList<CountryLanguage> languages = new ArrayList<CountryLanguage>();
+            while (rset.next())
+            {
+                CountryLanguage countryLanguage = new CountryLanguage();
+                countryLanguage.countryCode = rset.getString("CountryCode");
+                countryLanguage.language = rset.getString("Language");
+                if (rset.getString("IsOfficial") == "T") countryLanguage.isOfficial = true;
+                else countryLanguage.isOfficial = false;
+                countryLanguage.percentage = rset.getDouble("Percentage");
+                languages.add(countryLanguage);
+            }
+            return languages;
+        }
+        catch(Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get languages");
+            return null;
+        }
+    }
+
+
+
+    /**
      * Prints a population report
      * @param countries The list of countries
      * @param continentName The continent where to search
