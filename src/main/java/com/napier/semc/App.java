@@ -1,7 +1,7 @@
 package com.napier.semc;
 
 import java.sql.*;
-import java.util.ArrayList;
+import java.util.*;
 
 public class App
 {
@@ -543,14 +543,18 @@ public class App
     {
         long totalPopulation = 0;
         long languagePopulation = 0;
-        Country country;
-        String  languageName = null;
+        ArrayList<Country> countries;
+        String languageName = null;
 
+        countries = getWorldPopulations();
+        for (Country country : countries)
+        {
+            totalPopulation += country.population;
+        }
         for (CountryLanguage countryLanguage : languages)
         {
-            country = getCountry(countryLanguage.countryCode);
+            Country country = getCountry(countryLanguage.countryCode);
             languageName = countryLanguage.language;
-            totalPopulation += country.population;
             languagePopulation += country.population / 100 * countryLanguage.percentage;
         }
 
@@ -559,6 +563,85 @@ public class App
         System.out.println("Percentage of world population: " + (100f / totalPopulation * languagePopulation));
     }
 
+    public void printMajorLanguages()
+    {
+        long totalPopulation = 0;
+        long languagePopulation = 0;
+        String languageName = null;
+        ArrayList<Country> countries;
+        ArrayList<CountryLanguage> languages;
+        TreeMap<Long, String> languagesInfo = new TreeMap<Long, String>
+                (
+                        new Comparator<Long>() {
+                            @Override
+                            public int compare(Long o1, Long o2) {
+                                return o2.compareTo(o1);
+                            }
+                        });
+
+        System.out.println("Language report");
+        countries = getWorldPopulations();
+        for (Country country : countries)
+        {
+            totalPopulation += country.population;
+        }
+        languages = getCountryLanguages("Chinese");
+        for (CountryLanguage countryLanguage : languages)
+        {
+            Country country = getCountry(countryLanguage.countryCode);
+            languageName = countryLanguage.language;
+            languagePopulation += country.population / 100 * countryLanguage.percentage;
+        }
+        languagesInfo.put(languagePopulation, languageName);
+        languagePopulation = 0;
+        languageName = null;
+        languages = getCountryLanguages("English");
+        for (CountryLanguage countryLanguage : languages)
+        {
+            Country country = getCountry(countryLanguage.countryCode);
+            languageName = countryLanguage.language;
+            languagePopulation += country.population / 100 * countryLanguage.percentage;
+        }
+        languagesInfo.put(languagePopulation, languageName);
+        languagePopulation = 0;
+        languageName = null;
+        languages = getCountryLanguages("Hindi");
+        for (CountryLanguage countryLanguage : languages)
+        {
+            Country country = getCountry(countryLanguage.countryCode);
+            languageName = countryLanguage.language;
+            languagePopulation += country.population / 100 * countryLanguage.percentage;
+        }
+        languagesInfo.put(languagePopulation, languageName);
+        languagePopulation = 0;
+        languageName = null;
+        languages = getCountryLanguages("Spanish");
+        for (CountryLanguage countryLanguage : languages)
+        {
+            Country country = getCountry(countryLanguage.countryCode);
+            languageName = countryLanguage.language;
+            languagePopulation += country.population / 100 * countryLanguage.percentage;
+        }
+        languagesInfo.put(languagePopulation, languageName);
+        languagePopulation = 0;
+        languageName = null;
+        languages = getCountryLanguages("Arabic");
+        for (CountryLanguage countryLanguage : languages)
+        {
+            Country country = getCountry(countryLanguage.countryCode);
+            languageName = countryLanguage.language;
+            languagePopulation += country.population / 100 * countryLanguage.percentage;
+        }
+        languagesInfo.put(languagePopulation, languageName);
+        languagePopulation = 0;
+        languageName = null;
+        for (Map.Entry<Long, String> language : languagesInfo.entrySet())
+        {
+            System.out.println("Language: " + language.getValue());
+            System.out.println("Population who speak it: " + language.getKey());
+            System.out.println("Percentage of world population: " + (100f / totalPopulation * language.getKey()));
+        }
+    }
     /**
      * Prints a population report
      * @param countries The list of countries
@@ -782,6 +865,9 @@ public class App
 
         //Language report
         a.printLanguageReport(a.getCountryLanguages("English"));
+
+        //Major languages
+        a.printMajorLanguages();
 
         //Disconnect from database
         a.disconnect();
