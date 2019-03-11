@@ -3,7 +3,8 @@ package com.napier.semc;
 /**
  * Represents a city
  */
-public class City {
+public class City
+{
     //City ID
     public int ID;
     //City name

@@ -4,7 +4,8 @@ package com.napier.semc;
  * Represents a country
  */
 
-public class Country {
+public class Country
+{
     //Country code
     public String code;
     //Country name
