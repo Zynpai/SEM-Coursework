@@ -1,4 +1,8 @@
 # Project Backlog
+
+DEPRECIATED: USE ZUBE.IO FOR SPRINTS AND BACKLOG
+
+
 SPRINT 1:
 1. Code of conduct (est 1 day) DONE
 2. Set up Intelij DONE

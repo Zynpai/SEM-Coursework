@@ -418,6 +418,120 @@ public class App
     }
 
     /**
+     * Gets the countries and puts it to largest to smallest based on their population
+     * @return A list of countries and their details, or null if theres is an error
+     */
+    public ArrayList<Country> getWorldTopCountries()
+    {
+        try
+        {
+            //Create an SQL statement
+            Statement stmt = con.createStatement();
+            //Create string for SQL statement
+            String strSelect =
+                    "SELECT country.Code, country.Name, country.Continent, country.Region, country.Population, country.Capital "
+                            + "FROM country "
+                            + "ORDER BY country.Population DESC";
+            //Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            //Extract city information
+            ArrayList<Country> countries = new ArrayList<Country>();
+            while (rset.next())
+            {
+                Country country = new Country();
+                country.code = rset.getString("country.Code");
+                country.name = rset.getString("country.Name");
+                country.continent = rset.getString("country.Continent");
+                country.region = rset.getString("country.Region");
+                country.population = rset.getInt("country.Population");
+                country.capital = rset.getInt("country.Capital");
+                countries.add(country);
+            }
+            return countries;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get top country details");
+            return null;
+        }
+    }
+
+    public ArrayList<Country> getContinentTopCountries(String continent)
+    {
+        try
+        {
+            //Create an SQL statement
+            Statement stmt = con.createStatement();
+            //Create string for SQL statement
+            String strSelect =
+                    "SELECT country.Code, country.Name, country.Continent, country.Region, country.Population, country.Capital "
+                            + "FROM country "
+                            + "WHERE country.continent = '" + continent + "'"
+                            + "ORDER BY country.Population DESC";
+            //Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            //Extract city information
+            ArrayList<Country> countries = new ArrayList<Country>();
+            while (rset.next())
+            {
+                Country country = new Country();
+                country.code = rset.getString("country.Code");
+                country.name = rset.getString("country.Name");
+                country.continent = rset.getString("country.Continent");
+                country.region = rset.getString("country.Region");
+                country.population = rset.getInt("country.Population");
+                country.capital = rset.getInt("country.Capital");
+                countries.add(country);
+            }
+            return countries;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get top country details");
+            return null;
+        }
+    }
+
+    public ArrayList<Country> getRegionTopCountries(String region)
+    {
+        try
+        {
+            //Create an SQL statement
+            Statement stmt = con.createStatement();
+            //Create string for SQL statement
+            String strSelect =
+                    "SELECT country.Code, country.Name, country.Continent, country.Region, country.Population, country.Capital "
+                            + "FROM country "
+                            + "WHERE country.region = '" + region + "'"
+                            + "ORDER BY country.Population DESC";
+            //Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            //Extract city information
+            ArrayList<Country> countries = new ArrayList<Country>();
+            while (rset.next())
+            {
+                Country country = new Country();
+                country.code = rset.getString("country.Code");
+                country.name = rset.getString("country.Name");
+                country.continent = rset.getString("country.Continent");
+                country.region = rset.getString("country.Region");
+                country.population = rset.getInt("country.Population");
+                country.capital = rset.getInt("country.Capital");
+                countries.add(country);
+            }
+            return countries;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get top country details");
+            return null;
+        }
+    }
+
+    /**
      * Gets country name
      * @param countryCode How the city calls the country
      * @return A country's details, or null if there is an error.
@@ -454,6 +568,40 @@ public class App
             return null;
         }
     }
+
+    public City getCapitalCity(int countryCapital)
+    {
+        try
+        {
+            Statement stmt = con.createStatement();
+            //Create string for SQL statement
+            String strSelect =
+                    "SELECT city.Name, city.ID "
+                            +"FROM city "
+                            +"WHERE city.ID = '" + countryCapital + "'";
+            //Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            //Extract city information
+            if (rset.next())
+            {
+                City city = new City();
+                city.ID = rset.getInt("city.ID");
+                city.name = rset.getString("city.Name");
+                return city;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        catch(Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get Capital City");
+            return null;
+        }
+    }
+
 
     /**
      * Gets cities in a country
@@ -492,6 +640,88 @@ public class App
             System.out.println("Failed to get cities");
             return null;
         }
+    }
+
+    /**
+     * Prints the countries in the given area, largest to smallest based on population
+     * @param countries The list of countries
+     * @param continent The continent
+     * @param region The region
+     * @param worldBool The boolean that sees if the user is searching in the world
+     * @param continentBool The boolean that sees if the user is searching in the continent
+     * @param regionBool The boolean that sees if the user is searching in the region
+     */
+    public void printCountriesIn(ArrayList<Country> countries, String continent, String region, boolean worldBool, boolean continentBool, boolean regionBool)
+    {
+        City capitalCity;
+        if(worldBool)
+        {
+            countries = getWorldTopCountries();
+        }
+        if(continentBool)
+        {
+            countries = getContinentTopCountries(continent);
+        }
+        if(regionBool)
+        {
+            countries = getRegionTopCountries(region);
+        }
+        for (Country country : countries)
+        {
+            capitalCity = getCapitalCity(country.capital);
+            printCountries(capitalCity, country);
+        }
+    }
+
+    public void printTopCountries(ArrayList<Country> countries, String continent, String region, int topNumber, boolean worldBool, boolean continentBool, boolean regionBool)
+    {
+        City capitalCity;
+        int top = 1;
+        if(worldBool)
+        {
+            countries = getWorldTopCountries();
+        }
+        if(continentBool)
+        {
+            countries = getContinentTopCountries(continent);
+        }
+        if(regionBool)
+        {
+            countries = getRegionTopCountries(region);
+        }
+        for (Country country : countries)
+        {
+            if (topNumber > 0)
+            {
+                System.out.println("Top " + top);
+                capitalCity = getCapitalCity(country.capital);
+                printCountries(capitalCity, country);
+                topNumber--;
+                top++;
+            }
+        }
+    }
+
+    /**
+     * Prints the country report
+     * @param capitalCity The capital city of the country
+     * @param country The country
+     */
+    public void printCountries(City capitalCity, Country country)
+    {
+        System.out.println("Code:" + country.code);
+        System.out.println("Name:" + country.name);
+        System.out.println("Continent:" + country.continent);
+        System.out.println("Region:" + country.region);
+        System.out.println("Population:" + country.population);
+        if (capitalCity != null) {
+            System.out.println("Capital:" + capitalCity.name);
+        }
+        else
+        {
+            System.out.println("Has no capital city.");
+        }
+        System.out.println("------------------------");
     }
 
     /**
@@ -582,6 +812,7 @@ public class App
      */
     public void printTopCapitalCities(ArrayList<City> cities, String continent, String region, int topNumber, boolean worldBool, boolean continentBool, boolean regionBool)
     {
+        int top = 1;
         Country country;
         if (worldBool)
         {
@@ -597,26 +828,45 @@ public class App
         }
         for (City city : cities)
         {
+
             if (topNumber > 0) {
-                if (worldBool)
-                {
-                    country = getCountry(city.countryCode);
-                    printCapitalCities(city, country);
-                    topNumber--;
-                }
-                if (continentBool)
-                {
-                    country = getCountry(city.countryCode);
-                    printCapitalCities(city, country);
-                    topNumber--;
-                }
-                if (regionBool)
-                {
-                    country = getCountry(city.countryCode);
-                    printCapitalCities(city, country);
-                    topNumber--;
-                }
+                System.out.println("Top " + top);
+                country = getCountry(city.countryCode);
+                printCapitalCities(city, country);
+                topNumber--;
+                top++;
             }
+        }
+    }
+
+    /**
+     * Prints capital cities in the given area in largest to smallest
+     * @param cities The list of cities
+     * @param continent The continent
+     * @param region The region
+     * @param worldBool Sees if the user is searching in world
+     * @param continentBool Sees if the user is searching in the continent
+     * @param regionBool Sees if the user is searching in the region
+     */
+    public void printCapitalCitiesIn(ArrayList<City> cities, String continent, String region, boolean worldBool, boolean continentBool, boolean regionBool)
+    {
+        Country country;
+        if (worldBool)
+        {
+            cities = getWorldTopCapitalCities();
+        }
+        if (continentBool)
+        {
+            cities = getContinentTopCapitalCities(continent);
+        }
+        if (regionBool)
+        {
+            cities = getRegionTopCapitalCities(region);
+        }
+        for (City city : cities)
+        {
+            country = getCountry(city.countryCode);
+            printCapitalCities(city, country);
         }
     }
 
@@ -654,6 +904,34 @@ public class App
         String country = null;
         ArrayList<City> cities = new ArrayList<>();
         ArrayList<Country> countries = new ArrayList<>();
+
+        System.out.println("Capital Cities in the World");
+        //Get all capital cities in the world
+        worldBool = true;
+        a.printCapitalCitiesIn(cities, continent, region, worldBool, continentBool, regionBool);
+        //Clear cities
+        worldBool = false;
+        cities.clear();
+
+        System.out.println("Capital Cities in North America");
+        //Get all capital cities in Europe
+        continentBool = true;
+        continent = "North America";
+        a.printCapitalCitiesIn(cities, continent, region, worldBool, continentBool, regionBool);
+        //Clear cities
+        continentBool = false;
+        continent = null;
+        cities.clear();
+
+        System.out.println("Capital Cities in Southern Europe");
+        //Get all capital cities in the world
+        regionBool = true;
+        region = "Southern Europe";
+        a.printCapitalCitiesIn(cities, continent, region, worldBool, continentBool, regionBool);
+        //Clear cities
+        region = null;
+        regionBool = false;
+        cities.clear();
 
         System.out.println("Top 10 Capitals in the World");
         //Get all top 10 capital cities in the world
@@ -717,6 +995,62 @@ public class App
         countryBool = false;
         country = null;
         countries.clear();
+
+        //Countries in the world
+        System.out.println("Countries in the world");
+        worldBool = true;
+        a.printCountriesIn(countries, continent, region, worldBool, continentBool, regionBool);
+        //Clear countries
+        countries.clear();
+        worldBool = false;
+
+        //Countries in North America
+        System.out.println("Countries in North America");
+        continentBool = true;
+        continent = "North America";
+        a.printCountriesIn(countries, continent, region, worldBool, continentBool, regionBool);
+        //Clear countries
+        countries.clear();
+        continent = null;
+        continentBool = false;
+
+        //Countries in Southern Europe
+        System.out.println("Countries in Southern Europe");
+        regionBool = true;
+        region = "Southern Europe";
+        a.printCountriesIn(countries, continent, region, worldBool, continentBool, regionBool);
+        //Clear countries
+        countries.clear();
+        region = null;
+        regionBool = false;
+
+        //Top 3 Countries in the world
+        System.out.println("Top 3 Countries in the world");
+        worldBool = true;
+        a.printTopCountries(countries, continent, region, 3, worldBool, continentBool, regionBool);
+        //Clear countries
+        countries.clear();
+        worldBool = false;
+
+        //Top 3 Countries in North America
+        System.out.println("Top 3 Countries in North America");
+        continentBool = true;
+        continent = "North America";
+        a.printTopCountries(countries, continent, region, 3, worldBool, continentBool, regionBool);
+        //Clear countries
+        countries.clear();
+        continent = null;
+        continentBool = false;
+
+        //Top 3 Countries in Southern Europe
+        System.out.println("Top 3 Countries in Southern Europe");
+        regionBool = true;
+        region = "Southern Europe";
+        a.printTopCountries(countries, continent, region, 3, worldBool, continentBool, regionBool);
+        //Clear countries
+        countries.clear();
+        region = null;
+        regionBool = false;
 
         //Disconnect from database
         a.disconnect();
