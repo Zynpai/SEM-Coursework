@@ -888,11 +888,18 @@ public class App
      */
     public static void main(String[] args)
     {
-        //Create new application
+        // Create new Application
         App a = new App();
 
-        //Connect to database
-        a.connect("localhost:33060");
+        // Connect to database
+        if (args.length < 1)
+        {
+            a.connect("localhost:33060");
+        }
+        else
+        {
+            a.connect(args[0]);
+        }
 
         //Initialize variables
         boolean worldBool = false;
