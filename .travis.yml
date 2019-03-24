@@ -4,47 +4,64 @@ sudo: false
 
 addons:
   hosts:
-  - db
+    - db
 
 env:
   global:
+    # Ensure Google Cloud SDK doesn't prompt for installing.
     - CLOUDSDK_CORE_DISABLE_PROMPTS=1
 
 services:
   - docker
 
 install:
+  # Build database image.
   - docker build -t database db/.
+  # Run the database image.
   - docker run --rm -d -e MYSQL_ROOT_PASSWORD=example -p 33060:3306 database
+  # Build and install the application.
   - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 
 before_script:
+  # Clean any files.
   - mvn clean
 
+# Job stages
 jobs:
   include:
-  - stage: unit tests
-    install: skip
-    jdk: oraclejdk11
-  - stage: integration tests
-    jdk: oraclejdk11
-  - stage: GitHub Release
-    install: skip
-    jdk: oraclejdk11
-    script:
-    - echo "Deploying to GitHub Releases"
-    - mvn package -DskipTests=true -Dmaven.javadoc.skip=true
-    before_deploy:
-    - git config --local user.name "Viktor Malych"
-    - git config --local user.email "victormalych@gmail.com"
-    - export TRAVIS_TAG=${TRAVIS_TAG:-$(date +'%Y-%m-%d')-$(git log --format=%h -1)}
-    - git tag $TRAVIS_TAG
-    deploy:
-      provider: releases
-      api_key: "$GITHUB_OAUTH_TOKEN"
-      file: "$TRAVIS_BUILD_DIR/target/semCoursework.jar"
-      skip_cleanup: true
-  - stage: Google Cloud Deploy
+    # Unit test stage.
+    - stage: unit tests
+      install: skip
+      jdk: oraclejdk11
+      # Tell Maven to run the unit tests.
+    # Integration test stage.
+    - stage: integration tests
+      jdk: oraclejdk11
+      # Tell Maven to run the integration tests.
+    # GitHub release stage.
+    - stage: GitHub Release
+      install: skip
+      jdk: oraclejdk11
+      script:
+        - echo "Deploying to GitHub Releases"
+        # Package the Application.
+        - mvn package -DskipTests=true -Dmaven.javadoc.skip=true
+      before_deploy:
+        # Set our Git user name and email.
+        - git config --local user.name "Viktor Malych"
+        - git config --local user.email "victormalych@gmail.com"
+        # Create unique tag for the commit.
+        - export TRAVIS_TAG=${TRAVIS_TAG:-$(date +'%Y-%m-%d')-$(git log --format=%h -1)}
+        # Tag the commit.
+        - git tag $TRAVIS_TAG
+      deploy:
+        provider: releases
+        # Token saved on Travis.
+        api_key: "$GITHUB_OAUTH_TOKEN"
+        # File to add to the release.
+        file: "$TRAVIS_BUILD_DIR/target/semCoursework.jar"
+        skip_cleanup: true
+    - stage: Google Cloud Deploy
       install: skip
       jdk: oraclejdk11
       before_script:
@@ -86,6 +103,7 @@ stages:
     if: branch = master
 
 after_success:
+  # Push code coverage data to codecov.
   - bash <(curl -s https://codecov.io/bash)
 
 before_install:
