@@ -33,11 +33,9 @@ jobs:
     - stage: unit tests
       install: skip
       jdk: oraclejdk11
-      # Tell Maven to run the unit tests.
     # Integration test stage.
     - stage: integration tests
       jdk: oraclejdk11
-      # Tell Maven to run the integration tests.
     # GitHub release stage.
     - stage: GitHub Release
       install: skip
@@ -59,7 +57,7 @@ jobs:
         # Token saved on Travis.
         api_key: "$GITHUB_OAUTH_TOKEN"
         # File to add to the release.
-        file: "$TRAVIS_BUILD_DIR/target/semCoursework.jar"
+        file: "$TRAVIS_BUILD_DIR/target/seMethods.jar"
         skip_cleanup: true
     - stage: Google Cloud Deploy
       install: skip
@@ -107,5 +105,8 @@ after_success:
   - bash <(curl -s https://codecov.io/bash)
 
 before_install:
+  # Decrypts the credentials file.
+  # The keyname will be different for your project.
   - openssl aes-256-cbc -K $encrypted_41b95063a190_key -iv $encrypted_41b95063a190_iv
-  -in client-secret.json.enc -out client-secret.json -d
+    -in client-secret.json.enc -out client-secret.json -d
+
