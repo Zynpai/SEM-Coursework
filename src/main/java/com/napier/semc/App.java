@@ -467,7 +467,7 @@ public class App
             String strSelect =
                     "SELECT country.Code, country.Name, country.Continent, country.Region, country.Population, country.Capital "
                             + "FROM country "
-                            + "WHERE country.continent = '" + continent + "'"
+                            + "WHERE country.Continent = '" + continent + "'"
                             + "ORDER BY country.Population DESC";
             //Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
@@ -504,7 +504,7 @@ public class App
             String strSelect =
                     "SELECT country.Code, country.Name, country.Continent, country.Region, country.Population, country.Capital "
                             + "FROM country "
-                            + "WHERE country.region = '" + region + "'"
+                            + "WHERE country.Region = '" + region + "'"
                             + "ORDER BY country.Population DESC";
             //Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
@@ -567,6 +567,187 @@ public class App
         {
             System.out.println(e.getMessage());
             System.out.println("Failed to get Country");
+            return null;
+        }
+    }
+
+    /**
+     * Gets city details and orders them by population
+     * @return A city's details, or null if there is an error.
+     */
+    public ArrayList<City> getWorldTopCities()
+    {
+        try
+        {
+            Statement stmt = con.createStatement();
+            //Create string for SQL statement
+            String strSelect =
+                    "SELECT city.ID, city.name, city.district, city.countryCode, city.population "
+                            +"FROM city "
+                            +"ORDER BY city.population DESC";
+            //Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            ArrayList<City> cities = new ArrayList<City>();
+            //Extract city information
+            while (rset.next())
+            {
+                City city = new City();
+                city.ID = rset.getInt("city.ID");
+                city.name = rset.getString("city.Name");
+                city.population = rset.getInt("city.Population");
+                city.district = rset.getString("city.district");
+                city.countryCode = rset.getString("city.countryCode");
+                cities.add(city);
+            }
+            return cities;
+        }
+        catch(Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get City");
+            return null;
+        }
+    }
+
+    public ArrayList<City> getContinentTopCities(String continent)
+    {
+        try
+        {
+            Statement stmt = con.createStatement();
+            //Create string for SQL statement
+            String strSelect =
+                    "SELECT city.ID, city.Name, city.District, city.CountryCode, city.Population "
+                            +"FROM city "
+                            +"INNER JOIN country ON country.code = city.countryCode "
+                            +"WHERE country.Continent ='" +  continent + "'"
+                            +"ORDER BY city.Population DESC";
+            //Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            ArrayList<City> cities = new ArrayList<City>();
+            //Extract city information
+            while (rset.next())
+            {
+                City city = new City();
+                city.ID = rset.getInt("city.ID");
+                city.name = rset.getString("city.Name");
+                city.population = rset.getInt("city.Population");
+                city.district = rset.getString("city.district");
+                city.countryCode = rset.getString("city.countryCode");
+                cities.add(city);
+            }
+            return cities;
+        }
+        catch(Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get City");
+            return null;
+        }
+    }
+
+    public ArrayList<City> getRegionTopCities(String region)
+    {
+        try
+        {
+            Statement stmt = con.createStatement();
+            //Create string for SQL statement
+            String strSelect =
+                    "SELECT city.ID, city.name, city.district, city.countryCode, city.population "
+                            +"FROM city "
+                            +"INNER JOIN country ON country.code = city.countryCode "
+                            +"WHERE country.Region ='" +  region + "'"
+                            +"ORDER BY city.population DESC";
+            //Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            ArrayList<City> cities = new ArrayList<City>();
+            //Extract city information
+            while (rset.next())
+            {
+                City city = new City();
+                city.ID = rset.getInt("city.ID");
+                city.name = rset.getString("city.Name");
+                city.population = rset.getInt("city.Population");
+                city.district = rset.getString("city.district");
+                city.countryCode = rset.getString("city.countryCode");
+                cities.add(city);
+            }
+            return cities;
+        }
+        catch(Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get City");
+            return null;
+        }
+    }
+
+    public ArrayList<City> getCountryTopCities(String country)
+    {
+        try
+        {
+            Statement stmt = con.createStatement();
+            //Create string for SQL statement
+            String strSelect =
+                    "SELECT city.ID, city.name, city.district, city.countryCode, city.population "
+                            +"FROM city "
+                            +"INNER JOIN country ON country.code = city.countryCode "
+                            +"WHERE country.Name ='" +  country + "'"
+                            +"ORDER BY city.population DESC";
+            //Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            ArrayList<City> cities = new ArrayList<City>();
+            //Extract city information
+            while (rset.next())
+            {
+                City city = new City();
+                city.ID = rset.getInt("city.ID");
+                city.name = rset.getString("city.Name");
+                city.population = rset.getInt("city.Population");
+                city.district = rset.getString("city.district");
+                city.countryCode = rset.getString("city.countryCode");
+                cities.add(city);
+            }
+            return cities;
+        }
+        catch(Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get City");
+            return null;
+        }
+    }
+
+    public ArrayList<City> getDistrictTopCities(String district)
+    {
+        try
+        {
+            Statement stmt = con.createStatement();
+            //Create string for SQL statement
+            String strSelect =
+                    "SELECT city.ID, city.name, city.district, city.countryCode, city.population "
+                            +"FROM city "
+                            +"WHERE city.district ='" + district + "'"
+                            +"ORDER BY city.population DESC";
+            //Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            ArrayList<City> cities = new ArrayList<City>();
+            //Extract city information
+            while (rset.next())
+            {
+                City city = new City();
+                city.ID = rset.getInt("city.ID");
+                city.name = rset.getString("city.Name");
+                city.population = rset.getInt("city.Population");
+                city.district = rset.getString("city.district");
+                city.countryCode = rset.getString("city.countryCode");
+                cities.add(city);
+            }
+            return cities;
+        }
+        catch(Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get City");
             return null;
         }
     }
@@ -1027,6 +1208,82 @@ public class App
         System.out.println("------------------------");
     }
 
+    public void printTopCitiesIn(ArrayList<City> cities, String continent, String region, String country,  String district, int topNumber, boolean worldBool, boolean continentBool, boolean regionBool, boolean countryBool, boolean districtBool)
+    {
+        Country countryName;
+        int top = 1;
+        if(worldBool)
+        {
+            cities = getWorldTopCities();
+        }
+        if(continentBool)
+        {
+            cities = getContinentTopCities(continent);
+        }
+        if(regionBool)
+        {
+            cities = getRegionTopCities(region);
+        }
+        if(countryBool)
+        {
+            cities = getCountryTopCities(country);
+        }
+        if(districtBool)
+        {
+            cities = getDistrictTopCities(district);
+        }
+        for (City city : cities)
+        {
+
+            if (topNumber > 0) {
+                System.out.println("Top " + top);
+                countryName = getCountry(city.countryCode);
+                printCities(city, countryName);
+                topNumber--;
+                top++;
+            }
+        }
+    }
+
+    public void printCitiesIn(ArrayList<City> cities, String continent, String region, String country,  String district, boolean worldBool, boolean continentBool, boolean regionBool, boolean countryBool, boolean districtBool)
+    {
+        Country countryName;
+        if(worldBool)
+        {
+            cities = getWorldTopCities();
+        }
+        if(continentBool)
+        {
+            cities = getContinentTopCities(continent);
+        }
+        if(regionBool)
+        {
+            cities = getRegionTopCities(region);
+        }
+        if(countryBool)
+        {
+            cities = getCountryTopCities(country);
+        }
+        if(districtBool)
+        {
+            cities = getDistrictTopCities(district);
+        }
+        for (City city : cities)
+        {
+            countryName = getCountry(city.countryCode);
+            printCities(city, countryName);
+        }
+    }
+
+    public void printCities(City city, Country country)
+    {
+        System.out.println("Name:" + city.name);
+        System.out.println("Country:" + country.name);
+        System.out.println("District:" + city.district);
+        System.out.println("Population:" + city.population);
+        System.out.println("------------------------");
+    }
+
     /**
      * Main method
      */
@@ -1043,9 +1300,11 @@ public class App
         boolean continentBool = false;
         boolean regionBool = false;
         boolean countryBool = false;
+        boolean districtBool = false;
         String continent = null;
         String region = null;
         String country = null;
+        String district = null;
         ArrayList<City> cities = new ArrayList<>();
         ArrayList<Country> countries = new ArrayList<>();
         ArrayList<CountryLanguage> languages = new ArrayList<>();
@@ -1202,6 +1461,104 @@ public class App
 
         //Major languages
         a.printMajorLanguages();
+
+        //Top 1 City in the world
+        System.out.println("Top 1 City in the world");
+        worldBool = true;
+        a.printTopCitiesIn(cities, continent, region, country, district, 1, worldBool, continentBool, regionBool, countryBool, districtBool);
+        //Clear cities
+        cities.clear();
+        worldBool = false;
+
+        //Top 1 City in North America
+        System.out.println("Top 1 City in North America");
+        continentBool = true;
+        continent = "North America";
+        a.printTopCitiesIn(cities, continent, region, country, district, 1, worldBool, continentBool, regionBool, countryBool, districtBool);
+        //Clear cities
+        cities.clear();
+        continent = null;
+        continentBool = false;
+
+        //Top 1 City in Southern Europe
+        System.out.println("Top 1 City in Southern Europe");
+        regionBool = true;
+        region = "Southern Europe";
+        a.printTopCitiesIn(cities, continent, region, country, district, 1, worldBool, continentBool, regionBool, countryBool, districtBool);
+        //Clear cities
+        cities.clear();
+        region = null;
+        regionBool = false;
+
+        //Top 1 City in Aruba
+        System.out.println("Top 1 City in Aruba");
+        countryBool = true;
+        country = "Aruba";
+        a.printTopCitiesIn(cities, continent, region, country, district, 1, worldBool, continentBool, regionBool, countryBool, districtBool);
+        //Clear cities
+        cities.clear();
+        country = null;
+        countryBool = false;
+
+        //Top 1 City in West Australia
+        System.out.println("Top 1 City in West Australia");
+        districtBool = true;
+        district = "West Australia";
+        a.printTopCitiesIn(cities, continent, region, country, district, 1, worldBool, continentBool, regionBool, countryBool, districtBool);
+        //Clear cities
+        cities.clear();
+        district = null;
+        districtBool = false;
+
+        //Top Cities in the world
+        System.out.println("Top Cities in the world");
+        worldBool = true;
+        a.printCitiesIn(cities, continent, region, country, district, worldBool, continentBool, regionBool, countryBool, districtBool);
+        //Clear cities
+        cities.clear();
+        worldBool = false;
+
+        //Top Cities in North America
+        System.out.println("Top Cities in North America");
+        continentBool = true;
+        continent = "North America";
+        a.printCitiesIn(cities, continent, region, country, district, worldBool, continentBool, regionBool, countryBool, districtBool);
+        //Clear cities
+        cities.clear();
+        continent = null;
+        continentBool = false;
+
+        //Top Cities in Southern Europe
+        System.out.println("Top Cities in Southern Europe");
+        regionBool = true;
+        region = "Southern Europe";
+        a.printCitiesIn(cities, continent, region, country, district, worldBool, continentBool, regionBool, countryBool, districtBool);
+        //Clear cities
+        cities.clear();
+        region = null;
+        regionBool = false;
+
+        //Top cities in Aruba
+        System.out.println("Top Cities in Aruba");
+        countryBool = true;
+        country = "Aruba";
+        a.printCitiesIn(cities, continent, region, country, district, worldBool, continentBool, regionBool, countryBool, districtBool);
+        //Clear cities
+        cities.clear();
+        country = null;
+        countryBool = false;
+
+        //Top cities in West Australia
+        System.out.println("Top Cities in West Australia");
+        districtBool = true;
+        district = "West Australia";
+        a.printCitiesIn(cities, continent, region, country, district, worldBool, continentBool, regionBool, countryBool, districtBool);
+        //Clear cities
+        cities.clear();
+        district = null;
+        districtBool = false;
+
+
 
         //Disconnect from database
         a.disconnect();
