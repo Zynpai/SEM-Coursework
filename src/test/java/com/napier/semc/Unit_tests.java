@@ -54,7 +54,11 @@ class Unit_tests
     @Test
     void nulltestgetcities(){
         ArrayList<City> cities = app.getCities(null);
-        assertEquals(0, cities.size());
+        if(cities == null || cities.size() == 0 ){
+            System.out.println("Test sucessful");
+        }else{
+            assertEquals(1,0);
+        }
     }
 }
 

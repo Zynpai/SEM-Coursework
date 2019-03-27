@@ -764,7 +764,7 @@ public class App
             System.out.println("Error invalid usage, Aborting...");
             valid = false;
         }
-        if(valid){
+        if(valid && countries != null){
             for (Country country : countries)
             {
                 totalPopulation += country.population;
