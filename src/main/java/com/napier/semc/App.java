@@ -1,19 +1,27 @@
 package com.napier.semc;
 
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 import java.sql.*;
 import java.util.*;
 
+@SpringBootApplication
+@RestController
 public class App
 {
     /**
      * Connection to MySQL database.
      */
-    private Connection con = null;
+    private static Connection con = null;
 
     /**
      * Connect to the MySQL database.
      */
-    public void connect(String location)
+    public static void connect(String location)
     {
         try
         {
@@ -54,7 +62,7 @@ public class App
     /**
      * Disconnect from the MySQL database.
      */
-    public void disconnect()
+    public static void disconnect()
     {
         if (con != null)
         {
@@ -1293,285 +1301,16 @@ public class App
      */
     public static void main(String[] args)
     {
-        // Create new Application
-        App a = new App();
-
         // Connect to database
         if (args.length < 1)
         {
-            a.connect("localhost:33060");
+            connect("localhost:33060");
         }
         else
         {
-            a.connect(args[0]);
+            connect(args[0]);
         }
 
-        //Initialize variables
-        boolean worldBool = false;
-        boolean continentBool = false;
-        boolean regionBool = false;
-        boolean countryBool = false;
-        boolean districtBool = false;
-        String continent = null;
-        String region = null;
-        String country = null;
-        String district = null;
-        ArrayList<City> cities = new ArrayList<>();
-        ArrayList<Country> countries = new ArrayList<>();
-        ArrayList<CountryLanguage> languages = new ArrayList<>();
-
-        System.out.println("Capital Cities in the World");
-        //Get all capital cities in the world
-        worldBool = true;
-        a.printCapitalCitiesIn(cities, continent, region, worldBool, continentBool, regionBool);
-        //Clear cities
-        worldBool = false;
-        cities.clear();
-
-        System.out.println("Capital Cities in North America");
-        //Get all capital cities in Europe
-        continentBool = true;
-        continent = "North America";
-        a.printCapitalCitiesIn(cities, continent, region, worldBool, continentBool, regionBool);
-        //Clear cities
-        continentBool = false;
-        continent = null;
-        cities.clear();
-
-        System.out.println("Capital Cities in Southern Europe");
-        //Get all capital cities in the world
-        regionBool = true;
-        region = "Southern Europe";
-        a.printCapitalCitiesIn(cities, continent, region, worldBool, continentBool, regionBool);
-        //Clear cities
-        region = null;
-        regionBool = false;
-        cities.clear();
-
-        System.out.println("Top 10 Capitals in the World");
-        //Get all top 10 capital cities in the world
-        worldBool = true;
-        a.printTopCapitalCities(cities, continent, region,10, worldBool, continentBool, regionBool);
-        //Clear cities
-        worldBool = false;
-        cities.clear();
-
-        System.out.println("Top 10 Capitals in Europe");
-        //Get all top 10 capital cities in Europe
-        continent = "Europe";
-        continentBool = true;
-        a.printTopCapitalCities(cities, continent, region,10, worldBool, continentBool, regionBool);
-        //Clear cities
-        continentBool = false;
-        continent = null;
-        cities.clear();
-
-        System.out.println("Top 10 Capitals in Caribbean");
-        //Get all top 10 capital cities in the Caribbean
-        region = "Caribbean";
-        regionBool = true;
-        a.printTopCapitalCities(cities, continent, region, 10, worldBool, continentBool, regionBool);
-        //Clear cities
-        regionBool = false;
-        region = null;
-        cities.clear();
-
-        //Population reports
-        //World report
-        worldBool = true;
-        a.printPopulationReport(countries, continent, region, country, worldBool, continentBool, regionBool, countryBool);
-        //Reset values
-        worldBool = false;
-        countries.clear();
-
-        //Continent report
-        continent = "Europe";
-        continentBool = true;
-        a.printPopulationReport(countries, continent, region, country, worldBool, continentBool, regionBool, countryBool);
-        //Reset values
-        continentBool = false;
-        continent = null;
-        countries.clear();
-
-        //Region report
-        region = "Caribbean";
-        regionBool = true;
-        a.printPopulationReport(countries, continent, region, country, worldBool, continentBool, regionBool, countryBool);
-        //Clear cities
-        regionBool = false;
-        region = null;
-        countries.clear();
-
-        //Region report
-        country = "Lithuania";
-        countryBool = true;
-        a.printPopulationReport(countries, continent, region, country, worldBool, continentBool, regionBool, countryBool);
-        //Clear cities
-        countryBool = false;
-        country = null;
-        countries.clear();
-
-        //Countries in the world
-        System.out.println("Countries in the world");
-        worldBool = true;
-        a.printCountriesIn(countries, continent, region, worldBool, continentBool, regionBool);
-        //Clear countries
-        countries.clear();
-        worldBool = false;
-
-        //Countries in North America
-        System.out.println("Countries in North America");
-        continentBool = true;
-        continent = "North America";
-        a.printCountriesIn(countries, continent, region, worldBool, continentBool, regionBool);
-        //Clear countries
-        countries.clear();
-        continent = null;
-        continentBool = false;
-
-        //Countries in Southern Europe
-        System.out.println("Countries in Southern Europe");
-        regionBool = true;
-        region = "Southern Europe";
-        a.printCountriesIn(countries, continent, region, worldBool, continentBool, regionBool);
-        //Clear countries
-        countries.clear();
-        region = null;
-        regionBool = false;
-
-        //Top 3 Countries in the world
-        System.out.println("Top 3 Countries in the world");
-        worldBool = true;
-        a.printTopCountries(countries, continent, region, 3, worldBool, continentBool, regionBool);
-        //Clear countries
-        countries.clear();
-        worldBool = false;
-
-        //Top 3 Countries in North America
-        System.out.println("Top 3 Countries in North America");
-        continentBool = true;
-        continent = "North America";
-        a.printTopCountries(countries, continent, region, 3, worldBool, continentBool, regionBool);
-        //Clear countries
-        countries.clear();
-        continent = null;
-        continentBool = false;
-
-        //Top 3 Countries in Southern Europe
-        System.out.println("Top 3 Countries in Southern Europe");
-        regionBool = true;
-        region = "Southern Europe";
-        a.printTopCountries(countries, continent, region, 3, worldBool, continentBool, regionBool);
-        //Clear countries
-        countries.clear();
-        region = null;
-        regionBool = false;
-
-        //Language report
-        a.printLanguageReport(a.getCountryLanguages("English"));
-
-        //Major languages
-        a.printMajorLanguages();
-
-        //Top 1 City in the world
-        System.out.println("Top 1 City in the world");
-        worldBool = true;
-        a.printTopCitiesIn(cities, continent, region, country, district, 1, worldBool, continentBool, regionBool, countryBool, districtBool);
-        //Clear cities
-        cities.clear();
-        worldBool = false;
-
-        //Top 1 City in North America
-        System.out.println("Top 1 City in North America");
-        continentBool = true;
-        continent = "North America";
-        a.printTopCitiesIn(cities, continent, region, country, district, 1, worldBool, continentBool, regionBool, countryBool, districtBool);
-        //Clear cities
-        cities.clear();
-        continent = null;
-        continentBool = false;
-
-        //Top 1 City in Southern Europe
-        System.out.println("Top 1 City in Southern Europe");
-        regionBool = true;
-        region = "Southern Europe";
-        a.printTopCitiesIn(cities, continent, region, country, district, 1, worldBool, continentBool, regionBool, countryBool, districtBool);
-        //Clear cities
-        cities.clear();
-        region = null;
-        regionBool = false;
-
-        //Top 1 City in Aruba
-        System.out.println("Top 1 City in Aruba");
-        countryBool = true;
-        country = "Aruba";
-        a.printTopCitiesIn(cities, continent, region, country, district, 1, worldBool, continentBool, regionBool, countryBool, districtBool);
-        //Clear cities
-        cities.clear();
-        country = null;
-        countryBool = false;
-
-        //Top 1 City in West Australia
-        System.out.println("Top 1 City in West Australia");
-        districtBool = true;
-        district = "West Australia";
-        a.printTopCitiesIn(cities, continent, region, country, district, 1, worldBool, continentBool, regionBool, countryBool, districtBool);
-        //Clear cities
-        cities.clear();
-        district = null;
-        districtBool = false;
-
-        //Top Cities in the world
-        System.out.println("Top Cities in the world");
-        worldBool = true;
-        a.printCitiesIn(cities, continent, region, country, district, worldBool, continentBool, regionBool, countryBool, districtBool);
-        //Clear cities
-        cities.clear();
-        worldBool = false;
-
-        //Top Cities in North America
-        System.out.println("Top Cities in North America");
-        continentBool = true;
-        continent = "North America";
-        a.printCitiesIn(cities, continent, region, country, district, worldBool, continentBool, regionBool, countryBool, districtBool);
-        //Clear cities
-        cities.clear();
-        continent = null;
-        continentBool = false;
-
-        //Top Cities in Southern Europe
-        System.out.println("Top Cities in Southern Europe");
-        regionBool = true;
-        region = "Southern Europe";
-        a.printCitiesIn(cities, continent, region, country, district, worldBool, continentBool, regionBool, countryBool, districtBool);
-        //Clear cities
-        cities.clear();
-        region = null;
-        regionBool = false;
-
-        //Top cities in Aruba
-        System.out.println("Top Cities in Aruba");
-        countryBool = true;
-        country = "Aruba";
-        a.printCitiesIn(cities, continent, region, country, district, worldBool, continentBool, regionBool, countryBool, districtBool);
-        //Clear cities
-        cities.clear();
-        country = null;
-        countryBool = false;
-
-        //Top cities in West Australia
-        System.out.println("Top Cities in West Australia");
-        districtBool = true;
-        district = "West Australia";
-        a.printCitiesIn(cities, continent, region, country, district, worldBool, continentBool, regionBool, countryBool, districtBool);
-        //Clear cities
-        cities.clear();
-        district = null;
-        districtBool = false;
-
-
-
-        //Disconnect from database
-        a.disconnect();
+        SpringApplication.run(App.class, args);
     }
 }
