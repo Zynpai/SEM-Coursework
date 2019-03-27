@@ -13,12 +13,12 @@ public class App
     /**
      * Connect to the MySQL database.
      */
-    public void connect()
+    public void connect(String location)
     {
         try
         {
-            //Load Database driver
-            Class.forName("com.mysql.jdbc.Driver");
+            // Load Database driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
         }
         catch (ClassNotFoundException e)
         {
@@ -32,10 +32,10 @@ public class App
             System.out.println("Connecting to database...");
             try
             {
-                //Wait a bit for db to start
+                // Wait a bit for db to start
                 Thread.sleep(30000);
-                //Connect to database
-                con = DriverManager.getConnection("jdbc:mysql://db:3306/world?useSSL=false", "root", "example");
+                // Connect to database
+                con = DriverManager.getConnection("jdbc:mysql://" + location + "/world?allowPublicKeyRetrieval=true&useSSL=false", "root", "example");
                 System.out.println("Successfully connected");
                 break;
             }
@@ -1071,41 +1071,45 @@ public class App
         long ruralPopulation = 0; //Population living out of cities
         String name = null;
         ArrayList<City> cities;
+        boolean valid = true;
 
         if (worldBool)
         {
             countries = getWorldPopulations();
             name = "World";
-        }
-        if (continentBool)
+        }else if (continentBool && continentName != null && continentName != "")
         {
             countries = getContinentPopulations(continentName);
             name = continentName;
-        }
-        if (regionBool)
+        }else if (regionBool && regionName != null && regionName != "")
         {
             countries = getRegionPopulations(regionName);
             name = regionName;
-        }
-        if (countryBool)
+        }else if (countryBool && countryName != null && countryName != "")
         {
             countries = getCountryPopulations(countryName);
             name = countryName;
+        } else{
+            System.out.println("Error invalid usage, Aborting...");
+            valid = false;
         }
-        for (Country country : countries)
-        {
-            totalPopulation += country.population;
-            cities = getCities(country.code);
-            for (City city : cities)
+        if(valid && countries != null){
+            for (Country country : countries)
             {
-                cityPopulation += city.population;
+                totalPopulation += country.population;
+                cities = getCities(country.code);
+                for (City city : cities)
+                {
+                    cityPopulation += city.population;
+                }
+                ruralPopulation = totalPopulation - cityPopulation;
             }
-            ruralPopulation = totalPopulation - cityPopulation;
+            System.out.println("Name: " + name);
+            System.out.println("Total population: " + totalPopulation );
+            System.out.println("Population in cities: " + cityPopulation + "(" + (100f / totalPopulation * cityPopulation) + "%)");
+            System.out.println("Population not in cities: " + ruralPopulation + "(" + (100f / totalPopulation * ruralPopulation) + "%)");
         }
-        System.out.println("Name: " + name);
-        System.out.println("Total population: " + totalPopulation );
-        System.out.println("Population in cities: " + cityPopulation + "(" + (100f / totalPopulation * cityPopulation) + "%)");
-        System.out.println("Population not in cities: " + ruralPopulation + "(" + (100f / totalPopulation * ruralPopulation) + "%)");
+
     }
 
     /**
@@ -1289,11 +1293,18 @@ public class App
      */
     public static void main(String[] args)
     {
-        //Create new application
+        // Create new Application
         App a = new App();
 
-        //Connect to database
-        a.connect();
+        // Connect to database
+        if (args.length < 1)
+        {
+            a.connect("localhost:33060");
+        }
+        else
+        {
+            a.connect(args[0]);
+        }
 
         //Initialize variables
         boolean worldBool = false;
@@ -1355,8 +1366,8 @@ public class App
         continent = null;
         cities.clear();
 
-        System.out.println("Top 10 Capitals in Carribean");
-        //Get all top 10 capital cities in the Carribean
+        System.out.println("Top 10 Capitals in Caribbean");
+        //Get all top 10 capital cities in the Caribbean
         region = "Caribbean";
         regionBool = true;
         a.printTopCapitalCities(cities, continent, region, 10, worldBool, continentBool, regionBool);
