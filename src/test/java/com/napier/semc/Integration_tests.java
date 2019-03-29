@@ -79,4 +79,37 @@ public class Integration_tests {
 
     }
 
+//getWorldPopulations
+    @Test
+    void testworldpopulations(){
+        ArrayList<Country> pop =  app.getWorldPopulations();
+        assertNotEquals(0, pop.size());
+    }
+
+//getContinentPopulations
+    @Test
+    void testcontinentpopulations_garbage(){
+        ArrayList<Country> pop = app.getContinentPopulations("jadghashdfklasjh");
+        assertEquals(0, pop.size());
+    }
+    @Test
+    void testcontinentpopulations_real(){
+        ArrayList<Country> pop = app.getContinentPopulations("Europe");
+        assertNotEquals(0, pop.size());
+    }
+
+//getRegionPopulations
+
+    @Test
+    void getRegionPopulationsGarbage(){
+        ArrayList<Country> pop = app.getRegionPopulations("fjkhakshdfaslkh");
+        assertEquals(0,pop.size());
+    }
+    @Test
+    void getRegionPopulationsReal(){
+        ArrayList<Country> pop = app.getRegionPopulations("Eastern Europe");
+        assertNotEquals(0,pop.size());
+    }
+
+
 }
