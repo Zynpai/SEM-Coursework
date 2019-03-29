@@ -82,6 +82,7 @@ public class App
      * Gets world populations
      * @return A list of countries and populations, or null if there is an error.
      */
+    @RequestMapping("population_world")
     public ArrayList<Country> getWorldPopulations()
     {
         try
@@ -119,7 +120,8 @@ public class App
      * @param continent The continent from which to take the countries.
      * @return A list of countries and populations, or null if there is an error.
      */
-    public ArrayList<Country> getContinentPopulations(String continent)
+    @RequestMapping("population_continent")
+    public ArrayList<Country> getContinentPopulations(@RequestParam(value = "continent") String continent)
     {
         try
         {
@@ -157,7 +159,8 @@ public class App
      * @param region The region from which to take the countries.
      * @return A list of countries and populations, or null if there is an error.
      */
-    public ArrayList<Country> getRegionPopulations(String region)
+    @RequestMapping("population_region")
+    public ArrayList<Country> getRegionPopulations(@RequestParam(value = "region") String region)
     {
         try
         {
@@ -195,7 +198,8 @@ public class App
      * @param countryName The country.
      * @return A list of countries and populations, or null if there is an error.
      */
-    public ArrayList<Country> getCountryPopulations(String countryName)
+    @RequestMapping("population_country")
+    public ArrayList<Country> getCountryPopulations(@RequestParam(value = "country") String countryName)
     {
         try
         {
@@ -233,7 +237,8 @@ public class App
      * @param district The district from which to take the countries.
      * @return A list of cities and populations, or null if there is an error.
      */
-    public ArrayList<City> getDistrictPopulations(String district)
+    @RequestMapping("population_district")
+    public ArrayList<City> getDistrictPopulations(@RequestParam(value = "district") String district)
     {
         try
         {
@@ -271,7 +276,8 @@ public class App
      * @param cityName The city.
      * @return A list of cities and populations, or null if there is an error.
      */
-    public ArrayList<City> getCityPopulations(String cityName)
+    @RequestMapping("population_city")
+    public ArrayList<City> getCityPopulations(@RequestParam(value = "city") String cityName)
     {
         try
         {
