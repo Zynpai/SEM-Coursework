@@ -42,28 +42,28 @@ public class Integration_tests {
     void worldparametertest(){
 
         ArrayList<Country> countries = new ArrayList<Country>();
-        app.printPopulationReport(countries, "Europe", "", "Russia", true, false, false, false);
+        app.printPopulationReport(countries, "Europe", "", "France", true, false, false, false);
 
     }
     @Test
     void continentparametertest(){
 
         ArrayList<Country> countries = new ArrayList<Country>();
-        app.printPopulationReport(countries, "Europe", "", "Russia", false, true, false, false);
+        app.printPopulationReport(countries, "Europe", "", "France", false, true, false, false);
 
     }
     @Test
     void regionparametertest(){
 
         ArrayList<Country> countries = new ArrayList<Country>();
-        app.printPopulationReport(countries, "Europe", "Eastern Europe", "Russia", false, false, true, false);
+        app.printPopulationReport(countries, "Europe", "Eastern Europe", "France", false, false, true, false);
 
     }
     @Test
     void countryparametertest(){
 
         ArrayList<Country> countries = new ArrayList<Country>();
-        app.printPopulationReport(countries, "Europe", "", "Russia", false, false, false, true);
+        app.printPopulationReport(countries, "Europe", "", "France", false, false, false, true);
 
     }
 //getCities
@@ -135,7 +135,7 @@ public class Integration_tests {
     }
     @Test
     void getCountryPopulationsReal(){
-        ArrayList<Country> pop = app.getCountryPopulations("Russia");
+        ArrayList<Country> pop = app.getCountryPopulations("France");
         assertNotEquals(0,pop.size());
     }
 
@@ -148,7 +148,7 @@ public class Integration_tests {
     @Test
     void getDistrictPopulationsEmpty(){
         ArrayList<City> pop = app.getDistrictPopulations("");
-        assertEquals(0,pop.size());
+        assertEquals(4,pop.size()); //4 districts have error text which counts as ""
     }
     @Test
     void getDistrictPopulationsReal(){
@@ -189,5 +189,5 @@ public class Integration_tests {
     void getWorldTopCountriesReal(){
         app.getWorldTopCountries();
     }
-    
+
 }
