@@ -433,6 +433,7 @@ public class App
      * Gets the countries and puts it to largest to smallest based on their population
      * @return A list of countries and their details, or null if theres is an error
      */
+    @RequestMapping("countries_world")
     public ArrayList<Country> getWorldTopCountries()
     {
         try
@@ -468,8 +469,8 @@ public class App
             return null;
         }
     }
-
-    public ArrayList<Country> getContinentTopCountries(String continent)
+    @RequestMapping("countries_continent")
+    public ArrayList<Country> getContinentTopCountries(@RequestParam(value = "continent") String continent)
     {
         try
         {
@@ -505,8 +506,8 @@ public class App
             return null;
         }
     }
-
-    public ArrayList<Country> getRegionTopCountries(String region)
+    @RequestMapping("countries_region")
+    public ArrayList<Country> getRegionTopCountries(@RequestParam(value = "region") String region)
     {
         try
         {
@@ -588,6 +589,7 @@ public class App
      * Gets city details and orders them by population
      * @return A city's details, or null if there is an error.
      */
+    @RequestMapping("cities_world")
     public ArrayList<City> getWorldTopCities()
     {
         try
@@ -621,8 +623,8 @@ public class App
             return null;
         }
     }
-
-    public ArrayList<City> getContinentTopCities(String continent)
+    @RequestMapping("cities_continent")
+    public ArrayList<City> getContinentTopCities(@RequestParam(value = "continent") String continent)
     {
         try
         {
@@ -657,8 +659,8 @@ public class App
             return null;
         }
     }
-
-    public ArrayList<City> getRegionTopCities(String region)
+    @RequestMapping("cities_region")
+    public ArrayList<City> getRegionTopCities(@RequestParam(value = "region") String region)
     {
         try
         {
@@ -693,8 +695,8 @@ public class App
             return null;
         }
     }
-
-    public ArrayList<City> getCountryTopCities(String country)
+    @RequestMapping("cities_country")
+    public ArrayList<City> getCountryTopCities(@RequestParam(value = "country") String country)
     {
         try
         {
@@ -729,8 +731,8 @@ public class App
             return null;
         }
     }
-
-    public ArrayList<City> getDistrictTopCities(String district)
+    @RequestMapping("cities_district")
+    public ArrayList<City> getDistrictTopCities(@RequestParam(value = "district") String district)
     {
         try
         {
@@ -804,7 +806,8 @@ public class App
      * @param countryCode How the city calls the country
      * @return All the cities in a country
      */
-    public ArrayList<City> getCities(String countryCode)
+    @RequestMapping("get_cities")
+    public ArrayList<City> getCities(@RequestParam(value = "country") String countryCode)
     {
         try
         {
@@ -843,7 +846,8 @@ public class App
      * @param language The language to look for
      * @return All the languages in countries
      */
-    public ArrayList<CountryLanguage> getCountryLanguages(String language)
+    @RequestMapping("country_language")
+    public ArrayList<CountryLanguage> getCountryLanguages(@RequestParam(value = "language") String language)
     {
         try
         {
