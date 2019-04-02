@@ -190,4 +190,40 @@ public class Integration_tests {
         app.getWorldTopCountries();
     }
 
+//getContinentTopCapitalCities
+
+    @Test
+    void getContinentTopCapitalCitiesGarbage(){
+        ArrayList<City> pop = app.getContinentTopCapitalCities("jfoiasjfopaskjfpoask");
+        assertEquals(0,pop.size());
+    }
+    @Test
+    void getContinentTopCapitalCitiesEmpty(){
+        ArrayList<City> pop = app.getContinentTopCapitalCities("");
+        assertEquals(0,pop.size());
+    }
+    @Test
+    void getContinentTopCapitalCitiesReal(){
+        ArrayList<City> pop = app.getContinentTopCapitalCities("Europe");
+        assertNotEquals(0,pop.size());
+    }
+
+//getRegionTopCapitalCities
+
+    @Test
+    void getRegionTopCapitalCitiesGarbage(){
+        ArrayList<City> pop = app.getRegionTopCapitalCities("jfoiasjfopaskjfpoask");
+        assertEquals(0,pop.size());
+    }
+    @Test
+    void getRegionTopCapitalCitiesEmpty(){
+        ArrayList<City> pop = app.getRegionTopCapitalCities("");
+        assertEquals(0,pop.size());
+    }
+    @Test
+    void getRegionTopCapitalCitiesReal(){
+        ArrayList<City> pop = app.getRegionTopCapitalCities("Eastern Europe");
+        assertNotEquals(0,pop.size());
+    }
+
 }
