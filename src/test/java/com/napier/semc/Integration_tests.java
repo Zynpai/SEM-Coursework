@@ -279,6 +279,107 @@ public class Integration_tests {
         assertNotNull(pop);
     }
 
+//getCapitalCity
+
+    @Test
+    void getCapitalCity0(){
+        City pop = app.getCapitalCity(0);
+    }
+    @Test
+    void getCapitalCityReal(){
+        City pop = app.getCapitalCity(2974);
+        assertNotNull(pop);
+    }
+
+//printCountriesIn
+
+    @Test
+    void printCountriesInFalse(){
+        ArrayList<Country> pop = new ArrayList<>();
+        app.printCountriesIn(pop,"","",false,false,false);
+    }
+    @Test
+    void printCountriesInEmpty1(){
+        ArrayList<Country> pop = new ArrayList<>();
+        app.printCountriesIn(pop,"","",true,false,false);
+    }
+    @Test
+    void printCountriesInEmpty2(){
+        ArrayList<Country> pop = new ArrayList<>();
+        app.printCountriesIn(pop,"","",false,true,false);
+    }
+    @Test
+    void printCountriesInEmpty3(){
+        ArrayList<Country> pop = new ArrayList<>();
+        app.printCountriesIn(pop,"","",false,false,true);
+    }
+    @Test
+    void printCountriesInAllTrueEmpty(){
+        ArrayList<Country> pop = new ArrayList<>();
+        app.printCountriesIn(pop,"","",true,true,true);
+    }
+    @Test
+    void printCountriesInAllTrueFull(){
+        ArrayList<Country> pop = new ArrayList<>();
+        app.printCountriesIn(pop,"Europe","Eastern Europe",true,true,true);
+    }
+    @Test
+    void printCountriesInCorrect1(){
+        ArrayList<Country> pop = new ArrayList<>();
+        app.printCountriesIn(pop,"Europe","",false,true,false);
+    }
+    @Test
+    void printCountriesInCorrect2(){
+        ArrayList<Country> pop = new ArrayList<>();
+        app.printCountriesIn(pop,"","Eastern Europe",false,false,true);
+    }
 
 
+//printTopCountries
+
+    @Test
+    void printTopCountriesFalse(){
+        ArrayList<Country> pop = new ArrayList<>();
+        app.printTopCountries(pop,"","",0,false,false,false);
+    }
+    @Test
+    void printTopCountriesEmpty1(){
+        ArrayList<Country> pop = new ArrayList<>();
+        app.printTopCountries(pop,"","",0,true,false,false);
+    }
+    @Test
+    void printTopCountriesEmpty2(){
+        ArrayList<Country> pop = new ArrayList<>();
+        app.printTopCountries(pop,"","",0,false,true,false);
+    }
+    @Test
+    void printTopCountriesEmpty3(){
+        ArrayList<Country> pop = new ArrayList<>();
+        app.printTopCountries(pop,"","",0,false,false,true);
+    }
+    @Test
+    void printTopCountriesAllTrueEmpty(){
+        ArrayList<Country> pop = new ArrayList<>();
+        app.printTopCountries(pop,"","",0,true,true,true);
+    }
+    @Test
+    void printTopCountriesAllTrueFull(){
+        ArrayList<Country> pop = new ArrayList<>();
+        app.printTopCountries(pop,"Europe","Eastern Europe",3,true,true,true);
+    }
+    @Test
+    void printTopCountriesCorrect1(){
+        ArrayList<Country> pop = new ArrayList<>();
+        app.printTopCountries(pop,"","",3,true,false,false);
+    }
+    @Test
+    void printTopCountriesCorrect2(){
+        ArrayList<Country> pop = new ArrayList<>();
+        app.printTopCountries(pop,"Europe","",3,false,true,false);
+    }
+    @Test
+    void printTopCountriesCorrect3(){
+        ArrayList<Country> pop = new ArrayList<>();
+        app.printTopCountries(pop,"","Eastern Europe",3,false,false,true);
+    }
 }
