@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Salaries by Title</title>
+    <title>Population by Continent</title>
 
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
@@ -29,12 +29,13 @@
 </body>
 <script>
     var urlParams = new URLSearchParams(window.location.search);
-    var title = urlParams.get('continent');
+    var continent = urlParams.get('continent');
 
     var URL = "http://" + window.location.hostname + "/app/population_continent?continent=" + continent;
 
     $.getJSON(URL, function(data) {
         // EXTRACT VALUE FOR HTML HEADER.
+        console.log(data.toString());
         var col = [];
         for (var i = 0; i < data.length; i++) {
             for (var key in data[i]) {
