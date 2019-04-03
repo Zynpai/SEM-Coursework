@@ -31,7 +31,7 @@
     var urlParams = new URLSearchParams(window.location.search);
     var continent = urlParams.get('continent');
 
-    var URL = "http://" + window.location.hostname + "/app/population_continent?continent=" + continent;
+    var URL = "http://" + window.location.hostname + "/population_continent?continent=" + continent;
 
     $.getJSON(URL, function(data) {
         // EXTRACT VALUE FOR HTML HEADER.
