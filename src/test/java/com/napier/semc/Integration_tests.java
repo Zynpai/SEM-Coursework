@@ -226,4 +226,59 @@ public class Integration_tests {
         assertNotEquals(0,pop.size());
     }
 
+
+//getContinentTopCountries
+
+    @Test
+    void getContinentTopCountriesGarbage(){
+        ArrayList<Country> pop = app.getContinentTopCountries("jfoiasjfopaskjfpoask");
+        assertEquals(0,pop.size());
+    }
+    @Test
+    void getContinentTopCountriesEmpty(){
+        ArrayList<Country> pop = app.getContinentTopCountries("");
+        assertEquals(0,pop.size());
+    }
+    @Test
+    void getContinentTopCountriesReal(){
+        ArrayList<Country> pop = app.getContinentTopCountries("Europe");
+        assertNotEquals(0,pop.size());
+    }
+
+//getRegionTopCountries
+
+    @Test
+    void getRegionTopCountriesGarbage(){
+        ArrayList<Country> pop = app.getRegionTopCountries("jfoiasjfopaskjfpoask");
+        assertEquals(0,pop.size());
+    }
+    @Test
+    void getRegionTopCountriesEmpty(){
+        ArrayList<Country> pop = app.getRegionTopCountries("");
+        assertEquals(0,pop.size());
+    }
+    @Test
+    void getRegionTopCountriesReal(){
+        ArrayList<Country> pop = app.getRegionTopCountries("Eastern Europe");
+        assertNotEquals(0,pop.size());
+    }
+
+//getCountry
+
+    @Test
+    void getCountryGarbage(){
+        Country pop = app.getCountry("jfoiasjfopaskjfpoask");
+    }
+    @Test
+    void getCountryEmpty(){
+        Country pop = app.getCountry("");
+    }
+    @Test
+    void getCountryReal(){
+        Country pop = app.getCountry("FRA");
+        assertNotNull(pop);
+    }
+
+
+
 }
