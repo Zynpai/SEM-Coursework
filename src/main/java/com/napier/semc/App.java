@@ -1153,24 +1153,25 @@ public class App
      * @param name
      * @return
      */
-    @RequestMapping("print_top_cities")
+    @RequestMapping("print_top_capitals")
     public ArrayList<City> printTopCapitalCities(@RequestParam(value = "top") String topNumber,@RequestParam(value = "area") String area,@RequestParam(value = "name", required = false) String name)
     {
         int top = 1;
         int topN = Integer.parseInt(topNumber);
         Country country;
         ArrayList<City> cities = new ArrayList<>();
-        if (area == "world")
+        System.out.println(area);
+        if (area.equals("world"))
         {
             cities = getWorldTopCapitalCities();
         }
         else
-        if (area == "continent")
+        if (area.equals("continent"))
         {
             cities = getContinentTopCapitalCities(name);
         }
         else
-        if (area == "region")
+        if (area.equals("region"))
         {
             cities = getRegionTopCapitalCities(name);
         }
@@ -1190,6 +1191,11 @@ public class App
             }
         }
         return topCapitals;
+
+        //for (City city : topCapitals)
+        //{
+
+        //}
     }
 
     public enum Choice{
