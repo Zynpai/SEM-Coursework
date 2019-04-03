@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Salaries by Title</title>
+    <title>Population by World</title>
 
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
@@ -28,12 +28,11 @@
 <div class="showData">Waiting</div>
 </body>
 <script>
-    var urlParams = new URLSearchParams(window.location.search);
-
     var URL = "http://" + window.location.hostname + "/app/population_world";
 
     $.getJSON(URL, function(data) {
         // EXTRACT VALUE FOR HTML HEADER.
+        console.log(data.toString());
         var col = [];
         for (var i = 0; i < data.length; i++) {
             for (var key in data[i]) {
