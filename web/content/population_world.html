@@ -32,15 +32,18 @@
 
     $.getJSON(URL, function(data) {
         // Create a HTML Table element.
-        var table = $("<table border='1'></table>");
+        data = $.parseJSON(data);
 
-        table.append($("<tr><th>Code</th><th>Name</th><th>Population</th>"))
-        for (var i = 0; i < data.length; i++) {
-            table.append($("<tr><td>" + data[i][0] + "</td><td>" + data[i][1] + "</td><td>" + data[i][6] + "</td>"))
-        }
-
-        $(".showData").html('')
-        $(".showData").append(table);
+        $(function() {
+            $.each(response, function(i, item) {
+                var $tr = $('<tr>').append(
+                    $('<td>').text(item.rank),
+                    $('<td>').text(item.content),
+                    $('<td>').text(item.UID)
+                ); //.appendTo('#records_table');
+                console.log($tr.wrap('<p>').html());
+            });
+        });
     });
 </script>
 </html>
