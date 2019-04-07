@@ -35,13 +35,13 @@
         data = $.parseJSON(data);
 
         $(function() {
-            $.each(response, function(i, item) {
+            $.each(data, function(i, item) {
                 var $tr = $('<tr>').append(
-                    $('<td>').text(item.rank),
-                    $('<td>').text(item.content),
-                    $('<td>').text(item.UID)
-                ); //.appendTo('#records_table');
-                console.log($tr.wrap('<p>').html());
+                    $('<td>').text(item.Code),
+                    $('<td>').text(item.Name),
+                    $('<td>').text(item.Population)
+                );
+                $(".showData").html($tr);
             });
         });
     });
