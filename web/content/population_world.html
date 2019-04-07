@@ -31,9 +31,6 @@
     var URL = "http://" + window.location.hostname + "/app/population_world";
 
     $.getJSON(URL, function(data) {
-        // Create a HTML Table element.
-        data = $.parseJSON(data);
-
         $(function() {
             $.each(data, function(i, item) {
                 var $tr = $('<tr>').append(
