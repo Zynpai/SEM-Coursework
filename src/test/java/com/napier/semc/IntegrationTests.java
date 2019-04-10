@@ -18,54 +18,7 @@ public class IntegrationTests {
 
     }
 
-// printPopulationReport
-    @Test
-    void emptytestpopreport(){
 
-        app.printPopulationReport(null, "", "", "", false, true, true, true);
-
-    }
-    @Test
-    void emptytestpopreport2(){
-
-        app.printPopulationReport(null, "", "", "", false, false, true, true);
-
-    }
-    @Test
-    void emptytestpopreport3(){
-
-        app.printPopulationReport(null, "", "", "", false, false, false, true);
-
-    }
-
-    @Test
-    void worldparametertest(){
-
-        ArrayList<Country> countries = new ArrayList<Country>();
-        app.printPopulationReport(countries, "Europe", "", "Russia", true, false, false, false);
-
-    }
-    @Test
-    void continentparametertest(){
-
-        ArrayList<Country> countries = new ArrayList<Country>();
-        app.printPopulationReport(countries, "Europe", "", "Russia", false, true, false, false);
-
-    }
-    @Test
-    void regionparametertest(){
-
-        ArrayList<Country> countries = new ArrayList<Country>();
-        app.printPopulationReport(countries, "Europe", "Eastern Europe", "Russia", false, false, true, false);
-
-    }
-    @Test
-    void countryparametertest(){
-
-        ArrayList<Country> countries = new ArrayList<Country>();
-        app.printPopulationReport(countries, "Europe", "", "Russia", false, false, false, true);
-
-    }
 //getCities
     @Test
     void emptytestgetcities(){
