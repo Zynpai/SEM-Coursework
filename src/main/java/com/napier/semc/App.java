@@ -91,8 +91,11 @@ public class App
             Statement stmt = con.createStatement();
             //Create string for SQL statement
             String strSelect =
-                    "SELECT country.Code, country.Name, country.Population "
-                            + "FROM country";
+                    "SELECT country.Code, country.Name, country.Population, country.Continent, country.Region, " +
+                            "country.SurfaceArea, country.IndepYear, country.LifeExpectancy, country.GNP, country.GNPOld," +
+                            "country.LocalName, country.GovernmentForm, country.HeadOfState, country.Capital, country.Code2 "
+                            + "FROM country "
+                            + "ORDER BY country.Population DESC";
             //Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             //Extract country information
@@ -102,7 +105,19 @@ public class App
                 Country country = new Country();
                 country.code = rset.getString("country.Code");
                 country.name = rset.getString("country.Name");
+                country.continent = rset.getString("country.Continent");
+                country.region = rset.getString("country.Region");
                 country.population = rset.getInt("country.Population");
+                country.surfaceArea = rset.getDouble("country.SurafceArea");
+                country.indYear = rset.getInt("country.IndepYear");
+                country.lifeExpectancy = rset.getDouble("country.LifeExpectancy");
+                country.GNP = rset.getDouble("country.GNP");
+                country.oldGNP = rset.getDouble("country.GNPOld");
+                country.localName = rset.getString("country.LocalName");
+                country.govForm = rset.getString("country.GovernmentForm");
+                country.headOfState = rset.getString("country.HeadOfState");
+                country.capital = rset.getInt("country.Capital");
+                country.code2 = rset.getString("country.Code2");
                 countries.add(country);
             }
             return countries;
@@ -129,9 +144,12 @@ public class App
             Statement stmt = con.createStatement();
             //Create string for SQL statement
             String strSelect =
-                    "SELECT country.Code, country.Name, country.Population "
+                    "SELECT country.Code, country.Name, country.Population, country.Continent, country.Region, " +
+                            "country.SurfaceArea, country.IndepYear, country.LifeExpectancy, country.GNP, country.GNPOld," +
+                            "country.LocalName, country.GovernmentForm, country.HeadOfState, country.Capital, country.Code2 "
                             + "FROM country "
-                            + "WHERE country.Continent = '" + continent + "' ";
+                            + "WHERE country.Continent = '" + continent + "' "
+                            + "ORDER BY country.Population DESC";
             //Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             //Extract country information
@@ -141,7 +159,19 @@ public class App
                 Country country = new Country();
                 country.code = rset.getString("country.Code");
                 country.name = rset.getString("country.Name");
+                country.continent = rset.getString("country.Continent");
+                country.region = rset.getString("country.Region");
                 country.population = rset.getInt("country.Population");
+                country.surfaceArea = rset.getDouble("country.SurafceArea");
+                country.indYear = rset.getInt("country.IndepYear");
+                country.lifeExpectancy = rset.getDouble("country.LifeExpectancy");
+                country.GNP = rset.getDouble("country.GNP");
+                country.oldGNP = rset.getDouble("country.GNPOld");
+                country.localName = rset.getString("country.LocalName");
+                country.govForm = rset.getString("country.GovernmentForm");
+                country.headOfState = rset.getString("country.HeadOfState");
+                country.capital = rset.getInt("country.Capital");
+                country.code2 = rset.getString("country.Code2");
                 countries.add(country);
             }
             return countries;
@@ -168,9 +198,12 @@ public class App
             Statement stmt = con.createStatement();
             //Create string for SQL statement
             String strSelect =
-                    "SELECT country.Code, country.Name, country.Population "
+                    "SELECT country.Code, country.Name, country.Population, country.Continent, country.Region, " +
+                            "country.SurfaceArea, country.IndepYear, country.LifeExpectancy, country.GNP, country.GNPOld," +
+                            "country.LocalName, country.GovernmentForm, country.HeadOfState, country.Capital, country.Code2 "
                             + "FROM country "
-                            + "WHERE country.Region = '" + region + "' ";
+                            + "WHERE country.Region = '" + region + "' "
+                            + "ORDER BY country.Population DESC";
             //Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             //Extract country information
@@ -180,7 +213,19 @@ public class App
                 Country country = new Country();
                 country.code = rset.getString("country.Code");
                 country.name = rset.getString("country.Name");
+                country.continent = rset.getString("country.Continent");
+                country.region = rset.getString("country.Region");
                 country.population = rset.getInt("country.Population");
+                country.surfaceArea = rset.getDouble("country.SurafceArea");
+                country.indYear = rset.getInt("country.IndepYear");
+                country.lifeExpectancy = rset.getDouble("country.LifeExpectancy");
+                country.GNP = rset.getDouble("country.GNP");
+                country.oldGNP = rset.getDouble("country.GNPOld");
+                country.localName = rset.getString("country.LocalName");
+                country.govForm = rset.getString("country.GovernmentForm");
+                country.headOfState = rset.getString("country.HeadOfState");
+                country.capital = rset.getInt("country.Capital");
+                country.code2 = rset.getString("country.Code2");
                 countries.add(country);
             }
             return countries;
@@ -207,9 +252,12 @@ public class App
             Statement stmt = con.createStatement();
             //Create string for SQL statement
             String strSelect =
-                    "SELECT country.Code, country.Name, country.Population "
+                    "SELECT country.Code, country.Name, country.Population, country.Continent, country.Region, " +
+                            "country.SurfaceArea, country.IndepYear, country.LifeExpectancy, country.GNP, country.GNPOld," +
+                            "country.LocalName, country.GovernmentForm, country.HeadOfState, country.Capital, country.Code2 "
                             + "FROM country "
-                            + "WHERE country.Name = '" + countryName + "' ";
+                            + "WHERE country.Name = '" + countryName + "' "
+                            + "ORDER BY country.Population DESC";
             //Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             //Extract country information
@@ -219,7 +267,19 @@ public class App
                 Country country = new Country();
                 country.code = rset.getString("country.Code");
                 country.name = rset.getString("country.Name");
+                country.continent = rset.getString("country.Continent");
+                country.region = rset.getString("country.Region");
                 country.population = rset.getInt("country.Population");
+                country.surfaceArea = rset.getDouble("country.SurafceArea");
+                country.indYear = rset.getInt("country.IndepYear");
+                country.lifeExpectancy = rset.getDouble("country.LifeExpectancy");
+                country.GNP = rset.getDouble("country.GNP");
+                country.oldGNP = rset.getDouble("country.GNPOld");
+                country.localName = rset.getString("country.LocalName");
+                country.govForm = rset.getString("country.GovernmentForm");
+                country.headOfState = rset.getString("country.HeadOfState");
+                country.capital = rset.getInt("country.Capital");
+                country.code2 = rset.getString("country.Code2");
                 countries.add(country);
             }
             return countries;
@@ -246,9 +306,10 @@ public class App
             Statement stmt = con.createStatement();
             //Create string for SQL statement
             String strSelect =
-                    "SELECT city.ID, city.Name, city.Population "
+                    "SELECT city.ID, city.Name, city.Population, city.CountryCode, city.District "
                             + "FROM city "
-                            + "WHERE city.District = '" + district + "' ";
+                            + "WHERE city.District = '" + district + "' "
+                            + "ORDER BY city.Population DESC";
             //Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             //Extract city information
@@ -259,6 +320,8 @@ public class App
                 city.ID = rset.getInt("city.ID");
                 city.name = rset.getString("city.Name");
                 city.population = rset.getInt("city.Population");
+                city.countryCode = rset.getString("city.CountryCode");
+                city.district = rset.getString("city.District");
                 cities.add(city);
             }
             return cities;
@@ -285,9 +348,10 @@ public class App
             Statement stmt = con.createStatement();
             //Create string for SQL statement
             String strSelect =
-                    "SELECT city.ID, city.Name, city.Population "
+                    "SELECT city.ID, city.Name, city.Population, city.CountryCode, city.District "
                             + "FROM city "
-                            + "WHERE city.Name = '" + cityName + "' ";
+                            + "WHERE city.Name = '" + cityName + "' "
+                            + "ORDER BY city.Population DESC";
             //Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             //Extract city information
@@ -298,6 +362,8 @@ public class App
                 city.ID = rset.getInt("city.ID");
                 city.name = rset.getString("city.Name");
                 city.population = rset.getInt("city.Population");
+                city.countryCode = rset.getString("city.CountryCode");
+                city.district = rset.getString("city.District");
                 cities.add(city);
             }
             return cities;

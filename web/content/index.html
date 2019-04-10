@@ -43,16 +43,66 @@
         </form>
         <form action="/population_report.html">
             Population Report
-            <input list="type" name="type">
-            <datalist id="type">
+            <input list="typeCountry" name="type">
+            <datalist id="typeCountry">
                 <option value="world">
                 <option value="continent">
                 <option value="region">
                 <option value="country">
             </datalist>
-            <input type="text" name="name" value="Asia">
+            <input type="text" name="name">
             <input type="submit" value="Get">
         </form>
+        <h2>Country Reports</h2>
+        <form action="/print_countries.html">
+            All Countries
+            <input list="typeCountry" name="type">
+            <input type="text" name="name">
+            <input type="submit" value="Get">
+        </form>
+        <form action="/print_top_countries.html">
+            Top N Countries
+            <input type="text" name="top" value="5">
+            <input list="typeCountry" name="type">
+            <input type="text" name="name">
+            <input type="submit" value="Get">
+        </form>
+        <h2>City Reports</h2>
+        <form action="/print_cities.html">
+            All Cities
+            <input list="typeCity" name="type">
+            <datalist id="typeCity">
+                <option value="world">
+                <option value="continent">
+                <option value="region">
+                <option value="country">
+                <option value="district">
+            </datalist>
+            <input type="text" name="name">
+            <input type="submit" value="Get">
+        </form>
+        <form action="/print_top_cities.html">
+            Top N Cities
+            <input type="text" name="top" value="5">
+            <input list="typeCity" name="type">
+            <input type="text" name="name">
+            <input type="submit" value="Get">
+        </form>
+        <h2>Capital City Reports</h2>
+        <form action="/print_capitals.html">
+            All Capital Cities
+            <input list="typeCity" name="type">
+            <input type="text" name="name">
+            <input type="submit" value="Get">
+        </form>
+        <form action="/print_top_capitals.html">
+            Top N Capital Cities
+            <input type="text" name="top" value="5">
+            <input list="typeCity" name="type">
+            <input type="text" name="name">
+            <input type="submit" value="Get">
+        </form>
+        <h2>Language Report</h2>
         <form action="/language_report.html">
             Language Report
             <input type="submit" value="Get">
