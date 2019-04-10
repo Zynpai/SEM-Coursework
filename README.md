@@ -17,3 +17,45 @@ Zyrynyl Melendres
 Lucas Momsonis
 
 Discord Link = discord.gg/vqns8f5
+
+
+
+
+ID | Name | Done | Screenshot
+---|------|------|-----------
+1 | All the countries in the world organised by largest population to smallest | Yes | ![test image](/Images/Cat.jpg)
+2 | All the countries in a continent organised by largest population to smallest | Yes | image
+3 | | Yes | image
+4 | | Yes | image
+5 | | Yes | image
+6 | | Yes | image
+7 | | Yes | image
+8 | | Yes | image
+9 | | Yes | image
+10 | | Yes | image
+11 | | Yes | image
+12 | | Yes | image
+13 | | Yes | image
+14 | | Yes | image
+15 | | Yes | image
+16 | | Yes | image
+17 | | Yes | image
+18 | | Yes | image
+19 | | Yes | image
+20 | | Yes | image
+21 | | Yes | image
+22 | | Yes | image
+23 | | Yes | image
+24 | | Yes | image
+25 | | Yes | image
+26 | | Yes | image
+27 | | Yes | image
+28 | | Yes | image
+29 | | Yes | image
+30 | | Yes | image
+31 | | Yes | image
+32 | | Yes | image
+
+
+
+
