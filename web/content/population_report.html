@@ -31,7 +31,7 @@
     var urlParams = new URLSearchParams(window.location.search);
     var type = urlParams.get('type');
     var name = urlParams.get('name');
-    var URL = "http://" + window.location.hostname + "/app/population_report?type=" + type + "?name=" + name;
+    var URL = "http://" + window.location.hostname + "/app/population_report?type=" + type + "&name=" + name;
 
     $.getJSON(URL, function(data) {
         // EXTRACT VALUE FOR HTML HEADER.

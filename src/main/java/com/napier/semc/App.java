@@ -907,11 +907,11 @@ public class App
     }
 
     //Class to hold report info for population report
-    public class LanguageReport
+    class LanguageReport
     {
-        String language;
-        String population;
-        String percentage;
+        public String language;
+        public String population;
+        public String percentage;
     }
 
     //Method to print language report
@@ -921,9 +921,8 @@ public class App
         long totalPopulation = 0;
         long languagePopulation = 0;
         String languageName = null;
-        ArrayList<Country> countries;
-        ArrayList<CountryLanguage> languages;
-        LanguageReport report = null;
+        ArrayList<Country> countries = new ArrayList<>();
+        ArrayList<CountryLanguage> languages = new ArrayList<>();
         ArrayList<LanguageReport> reports = new ArrayList<>();
 
         TreeMap<Long, String> languagesInfo = new TreeMap<Long, String>
@@ -935,7 +934,6 @@ public class App
                             }
                         });
 
-        System.out.println("Language report");
         countries = getWorldPopulations();
         for (Country country : countries)
         {
@@ -993,6 +991,7 @@ public class App
         languageName = null;
         for (Map.Entry<Long, String> language : languagesInfo.entrySet())
         {
+            LanguageReport report = new LanguageReport();
             report.language = language.getValue();
             report.population = "" + language.getKey();
             report.percentage = "" + (100f / totalPopulation * language.getKey()) + "%";
@@ -1096,7 +1095,7 @@ public class App
      * @param name The name of area
      */
     @RequestMapping("population_report")
-    public ArrayList<PopulationReport> printPopulationReport(@RequestParam(value="type") String type,@RequestParam(value="name") String name)
+    public ArrayList<PopulationReport> printPopulationReport(@RequestParam(value="type") String type, @RequestParam(value="name") String name)
     {
         long totalPopulation = 0; //Total population
         long cityPopulation = 0;  //Population living in cities
@@ -1104,30 +1103,32 @@ public class App
         ArrayList<Country> countries = new ArrayList<>();
         ArrayList<City> cities = new ArrayList<>();
         boolean valid = true;
-
-        PopulationReport report = null;
+        PopulationReport report = new PopulationReport();
         ArrayList<PopulationReport> reports = new ArrayList<>();
 
-        if (type == "world")
+        if (type.equals("world"))
         {
             countries = getWorldPopulations();
         }
-        else if (type == "continent")
+        else if (type.equals("continent"))
         {
             countries = getContinentPopulations(name);
         }
-        else if (type == "region")
+        else if (type.equals("region"))
         {
             countries = getRegionPopulations(name);
         }
-        else if (type == "country")
+        else if (type.equals("country"))
         {
             countries = getCountryPopulations(name);
-        } else{
+        }
+        else
+        {
             System.out.println("Error invalid usage, Aborting...");
             valid = false;
         }
-        if(valid && countries != null){
+        if(valid && countries != null)
+        {
             for (Country country : countries)
             {
                 totalPopulation += country.population;
