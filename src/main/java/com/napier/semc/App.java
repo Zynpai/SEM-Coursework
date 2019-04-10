@@ -1067,42 +1067,46 @@ public class App
         System.out.println("------------------------");
     }
 
+    class PopulationReport
+    {
+        public String name;
+        public String totalPopulation;
+        public String populationInCities;
+        public String populationOutOfCities;
+    }
     /**
      * Prints a population report
-     * @param countries The list of countries
-     * @param continentName The continent where to search
-     * @param regionName  The region where to search
-     * @param countryName The country where to search
-     * @param worldBool The boolean that sees if the user is searching in the world
-     * @param continentBool The boolean that sees if the user is searching in the continent
-     * @param regionBool The boolean that sees if the user is searching in the region
-     * @param countryBool The boolean that sees if the user is searching in the country
+     * @param type The type of area
+     * @param name The name of area
      */
-    public void printPopulationReport(ArrayList<Country> countries, String continentName, String regionName, String countryName,  boolean worldBool, boolean continentBool, boolean regionBool, boolean countryBool)
+    @RequestMapping("population_report")
+    public ArrayList<PopulationReport> printPopulationReport(@RequestParam(value="type") String type,@RequestParam(value="name") String name)
     {
         long totalPopulation = 0; //Total population
         long cityPopulation = 0;  //Population living in cities
         long ruralPopulation = 0; //Population living out of cities
-        String name = null;
-        ArrayList<City> cities;
+        ArrayList<Country> countries = new ArrayList<>();
+        ArrayList<City> cities = new ArrayList<>();
         boolean valid = true;
 
-        if (worldBool)
+        PopulationReport report = null;
+        ArrayList<PopulationReport> reports = new ArrayList<>();
+
+        if (type == "world")
         {
             countries = getWorldPopulations();
-            name = "World";
-        }else if (continentBool && continentName != null && continentName != "")
+        }
+        else if (type == "continent")
         {
-            countries = getContinentPopulations(continentName);
-            name = continentName;
-        }else if (regionBool && regionName != null && regionName != "")
+            countries = getContinentPopulations(name);
+        }
+        else if (type == "region")
         {
-            countries = getRegionPopulations(regionName);
-            name = regionName;
-        }else if (countryBool && countryName != null && countryName != "")
+            countries = getRegionPopulations(name);
+        }
+        else if (type == "country")
         {
-            countries = getCountryPopulations(countryName);
-            name = countryName;
+            countries = getCountryPopulations(name);
         } else{
             System.out.println("Error invalid usage, Aborting...");
             valid = false;
@@ -1118,12 +1122,13 @@ public class App
                 }
                 ruralPopulation = totalPopulation - cityPopulation;
             }
-            System.out.println("Name: " + name);
-            System.out.println("Total population: " + totalPopulation );
-            System.out.println("Population in cities: " + cityPopulation + "(" + (100f / totalPopulation * cityPopulation) + "%)");
-            System.out.println("Population not in cities: " + ruralPopulation + "(" + (100f / totalPopulation * ruralPopulation) + "%)");
+            report.name = name;
+            report.totalPopulation = "" + totalPopulation;
+            report.populationInCities = "" + cityPopulation + "(" + (100f / totalPopulation * cityPopulation) + "%)";
+            report.populationOutOfCities = "" + ruralPopulation + "(" + (100f / totalPopulation * ruralPopulation) + "%)";
+            reports.add(report);
         }
-
+        return reports;
     }
 
     /**
