@@ -19,7 +19,7 @@ Lucas Momsonis
 Discord Link = discord.gg/vqns8f5
 
 
-
+32 requirements of 32 have been implemented, which is 100.00%.
 
 ID | Name | Done | Screenshot
 ---|------|------|-----------
@@ -56,6 +56,9 @@ ID | Name | Done | Screenshot
 31 | The population of a city | Yes | image
 32 | The number of people who speak the following the following languages from greatest number to smallest, including the percentage of the world population | Yes | image
 
-
-
-
+Name | Code review 1 | Code review 2 | Code review 3 | Code review 4 | Final Deliverable | Average 
+-----|---------------|---------------|---------------|---------------|-------------------|---------
+William Smallwood | 0.33 | 0.37 | 0.3 | 0.27 | 0.3 | 0.31
+Viktor Malych | 0.33 | 0.31 | 0.35 | 0.37 | 0.35 | 0.35
+Zyrynyl Melendres | 0.33 | 0.31 | 0.35 | 0.36 | 0.35 | 0.34
+Lucas Momsonis | 0 | 0 | 0 | 0 | 0 | 0 
