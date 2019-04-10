@@ -56,6 +56,9 @@ ID | Name | Done | Screenshot
 31 | The population of a city | Yes | image
 32 | The number of people who speak the following the following languages from greatest number to smallest, including the percentage of the world population | Yes | image
 
+
+##Contribution
+
 Name | Code review 1 | Code review 2 | Code review 3 | Code review 4 | Final Deliverable | Average 
 -----|---------------|---------------|---------------|---------------|-------------------|---------
 William Smallwood | 0.33 | 0.37 | 0.3 | 0.27 | 0.3 | 0.31
