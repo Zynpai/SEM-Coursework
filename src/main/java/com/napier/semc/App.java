@@ -906,13 +906,26 @@ public class App
         System.out.println("Percentage of world population: " + (100f / totalPopulation * languagePopulation));
     }
 
-    public void printMajorLanguages()
+    //Class to hold report info for population report
+    public class LanguageReport
+    {
+        String language;
+        String population;
+        String percentage;
+    }
+
+    //Method to print language report
+    @RequestMapping("language_report")
+    public ArrayList<LanguageReport> printMajorLanguages()
     {
         long totalPopulation = 0;
         long languagePopulation = 0;
         String languageName = null;
         ArrayList<Country> countries;
         ArrayList<CountryLanguage> languages;
+        LanguageReport report = null;
+        ArrayList<LanguageReport> reports = new ArrayList<>();
+
         TreeMap<Long, String> languagesInfo = new TreeMap<Long, String>
                 (
                         new Comparator<Long>() {
@@ -980,10 +993,12 @@ public class App
         languageName = null;
         for (Map.Entry<Long, String> language : languagesInfo.entrySet())
         {
-            System.out.println("Language: " + language.getValue());
-            System.out.println("Population who speak it: " + language.getKey());
-            System.out.println("Percentage of world population: " + (100f / totalPopulation * language.getKey()));
+            report.language = language.getValue();
+            report.population = "" + language.getKey();
+            report.percentage = "" + (100f / totalPopulation * language.getKey()) + "%";
+            reports.add(report);
         }
+        return reports;
     }
     /**
      * Prints the countries in the given area, largest to smallest based on population
@@ -1067,6 +1082,7 @@ public class App
         System.out.println("------------------------");
     }
 
+    //Class to hold report info for population report
     class PopulationReport
     {
         public String name;
