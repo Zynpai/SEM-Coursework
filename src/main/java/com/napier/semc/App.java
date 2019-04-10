@@ -1379,9 +1379,7 @@ public class App
         {
             connect(args[0]);
         }
-
-        App app = new App();
-        app.printMajorLanguages();
+        
         SpringApplication.run(App.class, args);
     }
 }
