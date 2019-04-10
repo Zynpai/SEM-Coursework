@@ -1240,19 +1240,6 @@ public class App
         return reports;
     }
 
-    /**
-     * Prints the capital cities
-     * @param city The city
-     * @param country The country
-     */
-    public void printCapitalCities(City city, Country country)
-    {
-        System.out.println("Name:" + city.name);
-        System.out.println("Population:" + city.population);
-        System.out.println("Country:" + country.name);
-        System.out.println("------------------------");
-    }
-
     public void printTopCitiesIn(ArrayList<City> cities, String continent, String region, String country,  String district, int topNumber, boolean worldBool, boolean continentBool, boolean regionBool, boolean countryBool, boolean districtBool)
     {
         Country countryName;
@@ -1283,7 +1270,6 @@ public class App
             if (topNumber > 0) {
                 System.out.println("Top " + top);
                 countryName = getCountry(city.countryCode);
-                printCities(city, countryName);
                 topNumber--;
                 top++;
             }
@@ -1316,17 +1302,7 @@ public class App
         for (City city : cities)
         {
             countryName = getCountry(city.countryCode);
-            printCities(city, countryName);
         }
-    }
-
-    public void printCities(City city, Country country)
-    {
-        System.out.println("Name:" + city.name);
-        System.out.println("Country:" + country.name);
-        System.out.println("District:" + city.district);
-        System.out.println("Population:" + city.population);
-        System.out.println("------------------------");
     }
 
     /**
