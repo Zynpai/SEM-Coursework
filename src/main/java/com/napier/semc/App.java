@@ -1146,20 +1146,29 @@ public class App
     }
 
 
+    public class CapitalCityReport
+    {
+        String Name;
+        String Country;
+        int Population;
+    }
+
     /**
-     *
-     * @param topNumber
-     * @param area
-     * @param name
-     * @return
+     * Prints the top capital cities
+     * @param topNumber the number of how many countries you want to be showed
+     * @param area where to search
+     * @param name the name of the continent or region
+     * @return the capital city reports
      */
     @RequestMapping("print_top_capitals")
-    public ArrayList<City> printTopCapitalCities(@RequestParam(value = "top") String topNumber,@RequestParam(value = "area") String area,@RequestParam(value = "name", required = false) String name)
+    public ArrayList<CapitalCityReport> printTopCapitalCities(@RequestParam(value = "top") String topNumber,@RequestParam(value = "area") String area,@RequestParam(value = "name", required = false) String name)
     {
         int top = 1;
         int topN = Integer.parseInt(topNumber);
         Country country;
         ArrayList<City> cities = new ArrayList<>();
+        CapitalCityReport report = null;
+        ArrayList<CapitalCityReport> reports = new ArrayList<>();
         System.out.println(area);
         if (area.equals("world"))
         {
@@ -1179,75 +1188,56 @@ public class App
         {
             System.out.println("Invalid Place");
         }
-        ArrayList<City> topCapitals = new ArrayList<City>();
+
         for (City city : cities)
         {
             if (topN > 0) {
-                System.out.println("Top " + top);
+                report.Name = city.name;
                 country = getCountry(city.countryCode);
-                topCapitals.add(city);
+                report.Country = country.name;
+                report.Population = city.population;
+                reports.add(report);
                 topN--;
                 top++;
             }
         }
-        return topCapitals;
-
-        //for (City city : topCapitals)
-        //{
-
-        //}
-    }
-
-    public enum Choice{
-        World("world"),
-        Continent("continent"),
-        Region("region"),
-        Country("country"),
-        District("district");
-
-        private String whichPlace;
-
-        Choice(String Place)
-        {
-            this.whichPlace = Place;
-        }
-
-        public String getPlace()
-        {
-            return whichPlace;
-        }
-
+        return reports;
     }
 
     /**
-     * Prints capital cities in the given area in largest to smallest
-     * @param cities The list of cities
-     * @param continent The continent
-     * @param region The region
-     * @param worldBool Sees if the user is searching in world
-     * @param continentBool Sees if the user is searching in the continent
-     * @param regionBool Sees if the user is searching in the region
+     * Prints the capitals
+     * @param area Where to search
+     * @param name The name of the region or continent
+     * @return the capital city reports
      */
-    public void printCapitalCitiesIn(ArrayList<City> cities, String continent, String region, boolean worldBool, boolean continentBool, boolean regionBool)
+    @RequestMapping("print_capitals")
+    public ArrayList<CapitalCityReport> printCapitalCitiesIn(@RequestParam(value = "area") String area,@RequestParam(value = "name", required = false) String name)
     {
         Country country;
-        if (worldBool)
+        ArrayList<City> cities = new ArrayList<>();
+        CapitalCityReport report = null;
+        ArrayList<CapitalCityReport> reports = new ArrayList<>();
+        if (area.equals("world"))
         {
             cities = getWorldTopCapitalCities();
         }
-        if (continentBool)
+        if (area.equals("continet"))
         {
-            cities = getContinentTopCapitalCities(continent);
+            cities = getContinentTopCapitalCities(name);
         }
-        if (regionBool)
+        if (area.equals("region"))
         {
-            cities = getRegionTopCapitalCities(region);
+            cities = getRegionTopCapitalCities(name);
         }
         for (City city : cities)
         {
+            report.Name = city.name;
             country = getCountry(city.countryCode);
-            printCapitalCities(city, country);
+            report.Country = country.name;
+            report.Population = city.population;
+            reports.add(report);
         }
+        return reports;
     }
 
     /**
