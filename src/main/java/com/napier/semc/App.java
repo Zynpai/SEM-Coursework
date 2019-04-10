@@ -1146,11 +1146,27 @@ public class App
     }
 
 
-    public class CapitalCityReport
+    class CapitalCityReport
     {
-        String Name;
-        String Country;
-        int Population;
+        public String Name;
+        public String Country;
+        public int Population;
+    }
+
+    /**
+     * Prints the capital city report
+     * @param city the city
+     * @param country the name of the country
+     * @return the capital city report
+     */
+    public CapitalCityReport printCapitalCity(City city, Country country)
+    {
+        CapitalCityReport report = new CapitalCityReport();
+        report.Name = city.name;
+        country = getCountry(city.countryCode);
+        report.Country = country.name;
+        report.Population = city.population;
+        return report;
     }
 
     /**
@@ -1163,13 +1179,11 @@ public class App
     @RequestMapping("print_top_capitals")
     public ArrayList<CapitalCityReport> printTopCapitalCities(@RequestParam(value = "top") String topNumber,@RequestParam(value = "area") String area,@RequestParam(value = "name", required = false) String name)
     {
-        int top = 1;
         int topN = Integer.parseInt(topNumber);
         Country country;
         ArrayList<City> cities = new ArrayList<>();
-        CapitalCityReport report = null;
+        CapitalCityReport report;
         ArrayList<CapitalCityReport> reports = new ArrayList<>();
-        System.out.println(area);
         if (area.equals("world"))
         {
             cities = getWorldTopCapitalCities();
@@ -1192,17 +1206,16 @@ public class App
         for (City city : cities)
         {
             if (topN > 0) {
-                report.Name = city.name;
                 country = getCountry(city.countryCode);
-                report.Country = country.name;
-                report.Population = city.population;
+                report = printCapitalCity(city, country);
                 reports.add(report);
                 topN--;
-                top++;
             }
         }
         return reports;
     }
+
+
 
     /**
      * Prints the capitals
@@ -1215,13 +1228,13 @@ public class App
     {
         Country country;
         ArrayList<City> cities = new ArrayList<>();
-        CapitalCityReport report = null;
+        CapitalCityReport report;
         ArrayList<CapitalCityReport> reports = new ArrayList<>();
         if (area.equals("world"))
         {
             cities = getWorldTopCapitalCities();
         }
-        if (area.equals("continet"))
+        if (area.equals("continent"))
         {
             cities = getContinentTopCapitalCities(name);
         }
@@ -1231,78 +1244,125 @@ public class App
         }
         for (City city : cities)
         {
-            report.Name = city.name;
             country = getCountry(city.countryCode);
-            report.Country = country.name;
-            report.Population = city.population;
+            report = printCapitalCity(city, country);
             reports.add(report);
         }
         return reports;
     }
 
-    public void printTopCitiesIn(ArrayList<City> cities, String continent, String region, String country,  String district, int topNumber, boolean worldBool, boolean continentBool, boolean regionBool, boolean countryBool, boolean districtBool)
+    class CityReport
+    {
+        public String Name;
+        public String Country;
+        public String District;
+        public int Population;
+    }
+
+    /**
+     * Prints the city report
+     * @param city the city
+     * @param country the name of the coutry
+     * @return the report
+     */
+    public CityReport printCity(City city, Country country)
+    {
+        CityReport report = new CityReport();
+        report.Name = city.name;
+        country = getCountry(city.countryCode);
+        report.Country = country.name;
+        report.Population = city.population;
+        report.District = city.district;
+        return report;
+    }
+
+    /**
+     * Prints the top cities
+     * @param topNumber The amount of number of cities the user wants to see
+     * @param area Where to search
+     * @param name The name of the continent, region, country and district
+     * @return The city reports
+     */
+    @RequestMapping("print_top_cities")
+    public ArrayList<CityReport> printTopCitiesIn(@RequestParam(value = "top") String topNumber,@RequestParam(value = "area") String area,@RequestParam(value = "name", required = false) String name)
     {
         Country countryName;
-        int top = 1;
-        if(worldBool)
+        int topN = Integer.parseInt(topNumber);
+        ArrayList<City> cities = new ArrayList<>();
+        CityReport report;
+        ArrayList<CityReport> reports = new ArrayList<>();
+        if(area.equals("world"))
         {
             cities = getWorldTopCities();
         }
-        if(continentBool)
+        if(area.equals("continent"))
         {
-            cities = getContinentTopCities(continent);
+            cities = getContinentTopCities(name);
         }
-        if(regionBool)
+        if(area.equals("region"))
         {
-            cities = getRegionTopCities(region);
+            cities = getRegionTopCities(name);
         }
-        if(countryBool)
+        if(area.equals("country"))
         {
-            cities = getCountryTopCities(country);
+            cities = getCountryTopCities(name);
         }
-        if(districtBool)
+        if(area.equals("district"))
         {
-            cities = getDistrictTopCities(district);
+            cities = getDistrictTopCities(name);
         }
         for (City city : cities)
         {
-
-            if (topNumber > 0) {
-                System.out.println("Top " + top);
+            if (topN > 0) {
                 countryName = getCountry(city.countryCode);
-                topNumber--;
-                top++;
+                report = printCity(city, countryName);
+                reports.add(report);
+                topN--;
             }
         }
+        return reports;
     }
 
-    public void printCitiesIn(ArrayList<City> cities, String continent, String region, String country,  String district, boolean worldBool, boolean continentBool, boolean regionBool, boolean countryBool, boolean districtBool)
+    /**
+     * Prints the cities
+     * @param area where to search
+     * @param name the name of the continent, region, country, and district
+     * @return
+     */
+    @RequestMapping("print_cities")
+    public ArrayList<CityReport> printCitiesIn(@RequestParam(value = "area") String area,@RequestParam(value = "name", required = false) String name)
     {
         Country countryName;
-        if(worldBool)
+        ArrayList<City> cities = new ArrayList<>();
+        CityReport report;
+        ArrayList<CityReport> reports = new ArrayList<>();
+        if(area.equals("world"))
         {
             cities = getWorldTopCities();
         }
-        if(continentBool)
+        if(area.equals("continent"))
         {
-            cities = getContinentTopCities(continent);
+            cities = getContinentTopCities(name);
         }
-        if(regionBool)
+        if(area.equals("region"))
         {
-            cities = getRegionTopCities(region);
+            cities = getRegionTopCities(name);
         }
-        if(countryBool)
+        if(area.equals("country"))
         {
-            cities = getCountryTopCities(country);
+            cities = getCountryTopCities(name);
         }
-        if(districtBool)
+        if(area.equals("district"))
         {
-            cities = getDistrictTopCities(district);
+            cities = getDistrictTopCities(name);
         }
         for (City city : cities)
         {
             countryName = getCountry(city.countryCode);
+            report = printCity(city, countryName);
+            reports.add(report);
         }
+        return reports;
     }
 
     /**
@@ -1320,6 +1380,8 @@ public class App
             connect(args[0]);
         }
 
+        App app = new App();
+        app.printMajorLanguages();
         SpringApplication.run(App.class, args);
     }
 }
