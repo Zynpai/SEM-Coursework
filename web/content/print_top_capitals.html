@@ -29,7 +29,7 @@
 </body>
 <script>
     var urlParams = new URLSearchParams(window.location.search);
-    var top = urlParams.get('top');
+    var top = parseInt(urlParams.get('top'));
     var area = urlParams.get('area');
     var name = urlParams.get('name');
     var URL = "http://" + window.location.hostname + "/app/print_capitals?top=" + top + "&area=" + area + "&name=" + name;
