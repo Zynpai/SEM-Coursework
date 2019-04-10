@@ -29,10 +29,11 @@
 </body>
 <script>
     var urlParams = new URLSearchParams(window.location.search);
-    var top = parseInt(urlParams.get('top'));
+    var topn = parseInt(urlParams.get('topn'));
     var area = urlParams.get('area');
     var name = urlParams.get('name');
-    var URL = "http://" + window.location.hostname + "/app/print_capitals?top=" + top + "&area=" + area + "&name=" + name;
+    console.log(topn);
+    var URL = "http://" + window.location.hostname + "/app/print_capitals?top=" + topn + "&area=" + area + "&name=" + name;
 
     $.getJSON(URL, function(data) {
         // EXTRACT VALUE FOR HTML HEADER.
