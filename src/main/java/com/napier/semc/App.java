@@ -108,7 +108,7 @@ public class App
                 country.continent = rset.getString("country.Continent");
                 country.region = rset.getString("country.Region");
                 country.population = rset.getInt("country.Population");
-                country.surfaceArea = rset.getDouble("country.SurafceArea");
+                country.surfaceArea = rset.getDouble("country.SurfaceArea");
                 country.indYear = rset.getInt("country.IndepYear");
                 country.lifeExpectancy = rset.getDouble("country.LifeExpectancy");
                 country.GNP = rset.getDouble("country.GNP");
@@ -162,7 +162,7 @@ public class App
                 country.continent = rset.getString("country.Continent");
                 country.region = rset.getString("country.Region");
                 country.population = rset.getInt("country.Population");
-                country.surfaceArea = rset.getDouble("country.SurafceArea");
+                country.surfaceArea = rset.getDouble("country.SurfaceArea");
                 country.indYear = rset.getInt("country.IndepYear");
                 country.lifeExpectancy = rset.getDouble("country.LifeExpectancy");
                 country.GNP = rset.getDouble("country.GNP");
@@ -216,7 +216,7 @@ public class App
                 country.continent = rset.getString("country.Continent");
                 country.region = rset.getString("country.Region");
                 country.population = rset.getInt("country.Population");
-                country.surfaceArea = rset.getDouble("country.SurafceArea");
+                country.surfaceArea = rset.getDouble("country.SurfaceArea");
                 country.indYear = rset.getInt("country.IndepYear");
                 country.lifeExpectancy = rset.getDouble("country.LifeExpectancy");
                 country.GNP = rset.getDouble("country.GNP");
@@ -270,7 +270,7 @@ public class App
                 country.continent = rset.getString("country.Continent");
                 country.region = rset.getString("country.Region");
                 country.population = rset.getInt("country.Population");
-                country.surfaceArea = rset.getDouble("country.SurafceArea");
+                country.surfaceArea = rset.getDouble("country.SurfaceArea");
                 country.indYear = rset.getInt("country.IndepYear");
                 country.lifeExpectancy = rset.getDouble("country.LifeExpectancy");
                 country.GNP = rset.getDouble("country.GNP");
