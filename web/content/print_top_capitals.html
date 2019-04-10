@@ -32,7 +32,7 @@
     var topn = parseInt(urlParams.get('topn'));
     var area = urlParams.get('area');
     var name = urlParams.get('name');
-    var URL = "http://" + window.location.hostname + "/app/print_capitals?top=" + topn.toString() + "&area=" + area + "&name=" + name;
+    var URL = "http://" + window.location.hostname + "/app/print_top_capitals?top=" + topn.toString() + "&area=" + area + "&name=" + name;
 
     $.getJSON(URL, function(data) {
         // EXTRACT VALUE FOR HTML HEADER.
