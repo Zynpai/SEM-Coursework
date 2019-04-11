@@ -32,13 +32,6 @@ public class IntegrationTests {
 
     }
 
-//getWorldPopulations
-    @Test
-    void testworldpopulations(){
-        ArrayList<Country> pop =  app.getWorldPopulations();
-        assertNotEquals(0, pop.size());
-    }
-
 //getContinentPopulations
     @Test
     void testcontinentpopulations_garbage(){
@@ -50,11 +43,7 @@ public class IntegrationTests {
         ArrayList<Country> pop = app.getContinentPopulations("");
         assertEquals(0, pop.size());
     }
-    @Test
-    void testcontinentpopulations_real(){
-        ArrayList<Country> pop = app.getContinentPopulations("Europe");
-        assertNotEquals(0, pop.size());
-    }
+
 
 //getRegionPopulations
 
@@ -67,11 +56,6 @@ public class IntegrationTests {
     void getRegionPopulationsEmpty(){
         ArrayList<Country> pop = app.getRegionPopulations("");
         assertEquals(0,pop.size());
-    }
-    @Test
-    void getRegionPopulationsReal(){
-        ArrayList<Country> pop = app.getRegionPopulations("Eastern Europe");
-        assertNotEquals(0,pop.size());
     }
 
 //getCountryPopulations
@@ -86,11 +70,7 @@ public class IntegrationTests {
         ArrayList<Country> pop = app.getCountryPopulations("");
         assertEquals(0,pop.size());
     }
-    @Test
-    void getCountryPopulationsReal(){
-        ArrayList<Country> pop = app.getCountryPopulations("France");
-        assertNotEquals(0,pop.size());
-    }
+
 
 //getDistrictPopulations
     @Test
