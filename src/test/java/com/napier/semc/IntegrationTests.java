@@ -30,7 +30,6 @@ public class IntegrationTests {
         System.out.println(cities.size());
 
     }
-    
 
 //getContinentPopulations
     @Test
@@ -57,7 +56,6 @@ public class IntegrationTests {
         ArrayList<Country> pop = app.getRegionPopulations("");
         assertEquals(0,pop.size());
     }
-
 
 //getCountryPopulations
 
@@ -224,8 +222,6 @@ public class IntegrationTests {
         assertNotNull(pop);
     }
 
-
-
 //getWorldPopulations
 
     @Test
@@ -321,8 +317,6 @@ public class IntegrationTests {
     void getCountryLanguagesReal(){
         app.getCountryLanguages("French");
     }
-
-
 
 //printMajorLanguages
 
@@ -514,6 +508,7 @@ public class IntegrationTests {
         Country country = app.getCountry("FRA");
         app.printCity(city,country);
     }
+
 
 
 }
