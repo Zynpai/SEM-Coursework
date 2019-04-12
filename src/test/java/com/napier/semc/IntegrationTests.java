@@ -224,18 +224,7 @@ public class IntegrationTests {
         assertNotNull(pop);
     }
 
-//printTotalPopulationCities
 
-    @Test
-    void printTotalPopulationCitiesEmpty(){
-        ArrayList<City> pop = new ArrayList<>();
-        app.printTotalPopulationCities(pop);
-    }
-    @Test
-    void printTotalPopulationCitiesReal(){
-        ArrayList<City> pop = app.getRegionTopCapitalCities("Eastern Europe");
-        app.printTotalPopulationCities(pop);
-    }
 
 //getWorldPopulations
 
@@ -334,19 +323,6 @@ public class IntegrationTests {
     }
 
 
-//printLanguageReport
-
-    @Test
-    void printLanguageReportEmpty(){
-        ArrayList<CountryLanguage> lang = new ArrayList<CountryLanguage>();
-        app.printLanguageReport(lang);
-    }
-
-    @Test
-    void printLanguageReportReal(){
-        ArrayList<CountryLanguage> lang = app.getCountryLanguages("French");
-        app.printLanguageReport(lang);
-    }
 
 //printMajorLanguages
 
@@ -456,6 +432,72 @@ public class IntegrationTests {
     void printTopCountriesReal3(){
         app.printTopCountries("3","region","Eastern Europe");
     }
+
+
+//printPopulationReport
+
+    @Test
+    void printPopulationReportEmpty(){
+        app.printPopulationReport("","");
+    }
+    @Test
+    void printPopulationReportGarbage1(){
+        app.printPopulationReport("ikfhkash","");
+    }
+    @Test
+    void printPopulationReportGarbage2(){
+        app.printPopulationReport("","afasoudf");
+    }
+    @Test
+    void printPopulationReportGarbage3(){
+        app.printPopulationReport("kljdsl","afasoudf");
+    }
+    @Test
+    void printPopulationReportGarbage4(){
+        app.printPopulationReport("world","afasoudf");
+    }
+    @Test
+    void printPopulationReportGarbage5(){
+        app.printPopulationReport("region","afasoudf");
+    }
+    @Test
+    void printPopulationReportGarbage6(){
+        app.printPopulationReport("continent","afasoudf");
+    }
+    @Test
+    void printPopulationReportGarbage7(){
+        app.printPopulationReport("country","afasoudf");
+    }
+    @Test
+    void printPopulationReportEmpty2(){
+        app.printPopulationReport("country","");
+    }
+    @Test
+    void printPopulationReportEmpty3(){
+        app.printPopulationReport("continent","");
+    }
+    @Test
+    void printPopulationReportEmpty4(){
+        app.printPopulationReport("region","");
+    }
+    @Test
+    void printPopulationReportReal1(){
+        app.printPopulationReport("world","");
+    }
+    @Test
+    void printPopulationReportReal2(){
+        app.printPopulationReport("continent","Europe");
+    }
+    @Test
+    void printPopulationReportReal3(){
+        app.printPopulationReport("region","Eastern Europe");
+    }
+    @Test
+    void printPopulationReportReal4(){
+        app.printPopulationReport("country","France");
+    }
+
+
 
 
 }

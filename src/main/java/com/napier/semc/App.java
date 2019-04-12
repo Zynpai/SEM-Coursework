@@ -952,33 +952,7 @@ public class App
         }
     }
 
-    /**
-     * Prints a language report
-     * @param languages The language to report on
-     */
-    public void printLanguageReport(ArrayList<CountryLanguage> languages)
-    {
-        long totalPopulation = 0;
-        long languagePopulation = 0;
-        ArrayList<Country> countries;
-        String languageName = null;
 
-        countries = getWorldPopulations();
-        for (Country country : countries)
-        {
-            totalPopulation += country.population;
-        }
-        for (CountryLanguage countryLanguage : languages)
-        {
-            Country country = getCountry(countryLanguage.countryCode);
-            languageName = countryLanguage.language;
-            languagePopulation += country.population / 100 * countryLanguage.percentage;
-        }
-
-        System.out.println("Language: " + languageName);
-        System.out.println("Population who speak it: " + languagePopulation);
-        System.out.println("Percentage of world population: " + (100f / totalPopulation * languagePopulation));
-    }
 
     //Class to hold report info for population report
     class LanguageReport
@@ -1254,21 +1228,7 @@ public class App
         return reports;
     }
 
-    /**
-     * Prints total population of given cities
-     * @param cities The list of cities
-     */
-    public void printTotalPopulationCities(ArrayList<City> cities)
-    {
-        //Total population
-        long totalPopulation = 0;
-        //Loop over all countries in the list
-        for (City city : cities)
-        {
-            totalPopulation = totalPopulation + city.population;
-        }
-        System.out.println("Total population is " + totalPopulation);
-    }
+
 
 
     class CapitalCityReport
