@@ -318,6 +318,91 @@ public class IntegrationTests {
     }
 
 
+//getCountryLanguages
+
+    @Test
+    void getCountryLanguagesEmpty(){
+        app.getCountryLanguages("");
+    }
+    @Test
+    void getCountryLanguagesGarbage(){
+        app.getCountryLanguages("jkdfhakjsdh");
+    }
+    @Test
+    void getCountryLanguagesReal(){
+        app.getCountryLanguages("French");
+    }
 
 
+//printLanguageReport
+
+    @Test
+    void printLanguageReportEmpty(){
+        ArrayList<CountryLanguage> lang = new ArrayList<CountryLanguage>();
+        app.printLanguageReport(lang);
+    }
+
+    @Test
+    void printLanguageReportReal(){
+        ArrayList<CountryLanguage> lang = app.getCountryLanguages("French");
+        app.printLanguageReport(lang);
+    }
+
+//printMajorLanguages
+
+    @Test
+    void printMajorLanguagesTest(){
+        app.printMajorLanguages();
+    }
+
+//printCountriesIn
+
+    @Test
+    void printCountriesInEmpty(){
+        app.printCountriesIn("","");
+    }
+    @Test
+    void printCountriesInGarbage1(){
+        app.printCountriesIn("ikfhkash","");
+    }
+    @Test
+    void printCountriesInGarbage2(){
+        app.printCountriesIn("","afasoudf");
+    }
+    @Test
+    void printCountriesInGarbage3(){
+        app.printCountriesIn("kljdsl","afasoudf");
+    }
+    @Test
+    void printCountriesInGarbage4(){
+        app.printCountriesIn("world","afasoudf");
+    }
+    @Test
+    void printCountriesInGarbage5(){
+        app.printCountriesIn("region","afasoudf");
+    }
+    @Test
+    void printCountriesInGarbage6(){
+        app.printCountriesIn("continent","afasoudf");
+    }
+    @Test
+    void printCountriesInEmpty2(){
+        app.printCountriesIn("continent","");
+    }
+    @Test
+    void printCountriesInEmpty3(){
+        app.printCountriesIn("region","");
+    }
+    @Test
+    void printCountriesInReal1(){
+        app.printCountriesIn("world","");
+    }
+    @Test
+    void printCountriesInReal2(){
+        app.printCountriesIn("continent","Europe");
+    }
+    @Test
+    void printCountriesInReal3(){
+        app.printCountriesIn("region","Eastern Europe");
+    }
 }
