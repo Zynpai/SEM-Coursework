@@ -952,6 +952,7 @@ public class App
         }
     }
 
+
     //Class to hold report info for population report
     class LanguageReport
     {
@@ -1091,10 +1092,16 @@ public class App
     public ArrayList<CountryReport> printTopCountries(@RequestParam(value = "top") String topNumber,@RequestParam(value = "area") String area,@RequestParam(value = "name", required = false) String name)
     {
         City capitalCity;
+        int topN = 0;
         ArrayList<Country> countries = new ArrayList<>();
         CountryReport report;
         ArrayList<CountryReport> reports = new ArrayList<>();
-        int topN = Integer.parseInt(topNumber);
+        try{
+            topN = Integer.parseInt(topNumber);
+        }catch(Exception e){
+            System.out.println("Error, number field incorrect");
+        }
+
         if(area.equals("world"))
         {
             countries = getWorldTopCountries();
@@ -1234,6 +1241,7 @@ public class App
         }
         return reports;
     }
+
 
 
     class CapitalCityReport
