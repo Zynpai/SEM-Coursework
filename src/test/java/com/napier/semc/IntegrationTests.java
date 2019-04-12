@@ -237,5 +237,87 @@ public class IntegrationTests {
         app.printTotalPopulationCities(pop);
     }
 
+//getWorldPopulations
+
+    @Test
+    void getWorldPopulationsTest(){
+        app.getWorldPopulations();
+    }
+
+
+//getWorldTopCities
+
+    @Test
+    void getWorldTopCitiesTest(){
+        app.getWorldTopCities();
+    }
+
+
+//getContinentTopCities
+
+    @Test
+    void getContinentTopCitiesEmpty(){
+        app.getContinentTopCities("");
+    }
+    @Test
+    void getContinentTopCitiesGarbage(){
+        app.getContinentTopCities("jkdfhakjsdh");
+    }
+    @Test
+    void getContinentTopCitiesReal(){
+        app.getContinentTopCities("Europe");
+    }
+
+
+//getRegionTopCities
+
+
+    @Test
+    void getRegionTopCitiesEmpty(){
+        app.getRegionTopCities("");
+    }
+    @Test
+    void getRegionTopCitiesGarbage(){
+        app.getRegionTopCities("jkdfhakjsdh");
+    }
+    @Test
+    void getRegionTopCitiesReal(){
+        app.getRegionTopCities("Eastern Europe");
+    }
+
+//getCountryTopCities
+
+
+    @Test
+    void getCountryTopCitiesEmpty(){
+        app.getCountryTopCities("");
+    }
+    @Test
+    void getCountryTopCitiesGarbage(){
+        app.getCountryTopCities("jkdfhakjsdh");
+    }
+    @Test
+    void getCountryTopCitiesReal(){
+        app.getCountryTopCities("France");
+    }
+
+//getDistrictTopCities
+
+
+    @Test
+    void getDistrictTopCitiesEmpty(){
+        app.getDistrictTopCities("");
+    }
+    @Test
+    void getDistrictTopCitiesGarbage(){
+        app.getDistrictTopCities("jkdfhakjsdh");
+    }
+    @Test
+    void getDistrictTopCitiesReal(){
+        app.getDistrictTopCities("Moscow (City)");
+    }
+
+
+
 
 }
