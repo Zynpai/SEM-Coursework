@@ -1228,8 +1228,8 @@ public class App
             totalPopulation = cityPopulation;
             report.name = name;
             report.totalPopulation = "" + totalPopulation;
-            report.populationInCities = "" + cityPopulation + ("100%");
-            report.populationOutOfCities = "" + ruralPopulation + ("0%");
+            report.populationInCities = "" + cityPopulation + ("(100%)");
+            report.populationOutOfCities = "" + ruralPopulation + ("(0%)");
             reports.add(report);
         }
         return reports;
