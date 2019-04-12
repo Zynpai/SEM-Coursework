@@ -497,7 +497,23 @@ public class IntegrationTests {
         app.printPopulationReport("country","France");
     }
 
+//printCapitalCity
 
+    @Test
+    void printCapitalCityTest(){
+        City city = app.getCapitalCity(2974);
+        Country country = app.getCountry("FRA");
+        app.printCapitalCity(city,country);
+    }
+
+//printCity
+
+    @Test
+    void printCityTest(){
+        City city = app.getCapitalCity(2974);
+        Country country = app.getCountry("FRA");
+        app.printCity(city,country);
+    }
 
 
 }

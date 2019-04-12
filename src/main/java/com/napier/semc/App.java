@@ -1248,7 +1248,6 @@ public class App
     {
         CapitalCityReport report = new CapitalCityReport();
         report.Name = city.name;
-        country = getCountry(city.countryCode);
         report.Country = country.name;
         report.Population = city.population;
         return report;
@@ -1354,7 +1353,6 @@ public class App
     {
         CityReport report = new CityReport();
         report.Name = city.name;
-        country = getCountry(city.countryCode);
         report.Country = country.name;
         report.Population = city.population;
         report.District = city.district;
