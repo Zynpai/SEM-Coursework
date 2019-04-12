@@ -405,4 +405,57 @@ public class IntegrationTests {
     void printCountriesInReal3(){
         app.printCountriesIn("region","Eastern Europe");
     }
+
+//printTopCountries
+
+    @Test
+    void printTopCountriesEmpty(){
+        app.printTopCountries("" ,"","");
+    }
+    @Test
+    void printTopCountriesGarbage1(){
+        app.printTopCountries("","ikfhkash","");
+    }
+    @Test
+    void printTopCountriesGarbage2(){
+        app.printTopCountries("","","afasoudf");
+    }
+    @Test
+    void printTopCountriesGarbage3(){
+        app.printTopCountries("","kljdsl","afasoudf");
+    }
+    @Test
+    void printTopCountriesGarbage4(){
+        app.printTopCountries("","world","afasoudf");
+    }
+    @Test
+    void printTopCountriesGarbage5(){
+        app.printTopCountries("","region","afasoudf");
+    }
+    @Test
+    void printTopCountriesGarbage6(){
+        app.printTopCountries("","continent","afasoudf");
+    }
+    @Test
+    void printTopCountriesEmpty2(){
+        app.printTopCountries("","continent","");
+    }
+    @Test
+    void printTopCountriesEmpty3(){
+        app.printTopCountries("","region","");
+    }
+    @Test
+    void printTopCountriesReal1(){
+        app.printTopCountries("3","world","");
+    }
+    @Test
+    void printTopCountriesReal2(){
+        app.printTopCountries("3","continent","Europe");
+    }
+    @Test
+    void printTopCountriesReal3(){
+        app.printTopCountries("3","region","Eastern Europe");
+    }
+
+
 }
