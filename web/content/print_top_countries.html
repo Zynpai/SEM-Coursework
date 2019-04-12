@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Population by World</title>
+    <title>Print top countries</title>
 
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
@@ -29,10 +29,10 @@
 </body>
 <script>
     var urlParams = new URLSearchParams(window.location.search);
-    var top = urlParams.get('top');
+    var topn = parseInt(urlParams.get('topn'));
     var area = urlParams.get('area');
     var name = urlParams.get('name');
-    var URL = "http://" + window.location.hostname + "/app/print_countries?top=" + top + "&area=" + area + "&name=" + name;
+    var URL = "http://" + window.location.hostname + "/app/print_top_countries?top=" + topn.toString() + "&area=" + area + "&name=" + name;
 
     $.getJSON(URL, function(data) {
         // EXTRACT VALUE FOR HTML HEADER.

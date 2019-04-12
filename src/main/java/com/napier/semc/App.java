@@ -953,7 +953,6 @@ public class App
     }
 
 
-
     //Class to hold report info for population report
     class LanguageReport
     {
@@ -1225,9 +1224,23 @@ public class App
             report.populationOutOfCities = "" + ruralPopulation + "(" + (100f / totalPopulation * ruralPopulation) + "%)";
             reports.add(report);
         }
+
+        if(type.equals("district"))
+        {
+            cities = getDistrictPopulations(name);
+            for (City city : cities)
+            {
+                cityPopulation += city.population;
+            }
+            totalPopulation = cityPopulation;
+            report.name = name;
+            report.totalPopulation = "" + totalPopulation;
+            report.populationInCities = "" + cityPopulation + ("(100%)");
+            report.populationOutOfCities = "" + ruralPopulation + ("(0%)");
+            reports.add(report);
+        }
         return reports;
     }
-
 
 
 
