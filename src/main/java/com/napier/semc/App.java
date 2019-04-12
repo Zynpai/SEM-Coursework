@@ -108,7 +108,7 @@ public class App
                 country.continent = rset.getString("country.Continent");
                 country.region = rset.getString("country.Region");
                 country.population = rset.getInt("country.Population");
-                country.surfaceArea = rset.getDouble("country.SurafceArea");
+                country.surfaceArea = rset.getDouble("country.SurfaceArea");
                 country.indYear = rset.getInt("country.IndepYear");
                 country.lifeExpectancy = rset.getDouble("country.LifeExpectancy");
                 country.GNP = rset.getDouble("country.GNP");
@@ -162,7 +162,7 @@ public class App
                 country.continent = rset.getString("country.Continent");
                 country.region = rset.getString("country.Region");
                 country.population = rset.getInt("country.Population");
-                country.surfaceArea = rset.getDouble("country.SurafceArea");
+                country.surfaceArea = rset.getDouble("country.SurfaceArea");
                 country.indYear = rset.getInt("country.IndepYear");
                 country.lifeExpectancy = rset.getDouble("country.LifeExpectancy");
                 country.GNP = rset.getDouble("country.GNP");
@@ -216,7 +216,7 @@ public class App
                 country.continent = rset.getString("country.Continent");
                 country.region = rset.getString("country.Region");
                 country.population = rset.getInt("country.Population");
-                country.surfaceArea = rset.getDouble("country.SurafceArea");
+                country.surfaceArea = rset.getDouble("country.SurfaceArea");
                 country.indYear = rset.getInt("country.IndepYear");
                 country.lifeExpectancy = rset.getDouble("country.LifeExpectancy");
                 country.GNP = rset.getDouble("country.GNP");
@@ -270,7 +270,7 @@ public class App
                 country.continent = rset.getString("country.Continent");
                 country.region = rset.getString("country.Region");
                 country.population = rset.getInt("country.Population");
-                country.surfaceArea = rset.getDouble("country.SurafceArea");
+                country.surfaceArea = rset.getDouble("country.SurfaceArea");
                 country.indYear = rset.getInt("country.IndepYear");
                 country.lifeExpectancy = rset.getDouble("country.LifeExpectancy");
                 country.GNP = rset.getDouble("country.GNP");
@@ -952,33 +952,6 @@ public class App
         }
     }
 
-    /**
-     * Prints a language report
-     * @param languages The language to report on
-     */
-    public void printLanguageReport(ArrayList<CountryLanguage> languages)
-    {
-        long totalPopulation = 0;
-        long languagePopulation = 0;
-        ArrayList<Country> countries;
-        String languageName = null;
-
-        countries = getWorldPopulations();
-        for (Country country : countries)
-        {
-            totalPopulation += country.population;
-        }
-        for (CountryLanguage countryLanguage : languages)
-        {
-            Country country = getCountry(countryLanguage.countryCode);
-            languageName = countryLanguage.language;
-            languagePopulation += country.population / 100 * countryLanguage.percentage;
-        }
-
-        System.out.println("Language: " + languageName);
-        System.out.println("Population who speak it: " + languagePopulation);
-        System.out.println("Percentage of world population: " + (100f / totalPopulation * languagePopulation));
-    }
 
     //Class to hold report info for population report
     class LanguageReport
@@ -1119,10 +1092,16 @@ public class App
     public ArrayList<CountryReport> printTopCountries(@RequestParam(value = "top") String topNumber,@RequestParam(value = "area") String area,@RequestParam(value = "name", required = false) String name)
     {
         City capitalCity;
+        int topN = 0;
         ArrayList<Country> countries = new ArrayList<>();
         CountryReport report;
         ArrayList<CountryReport> reports = new ArrayList<>();
-        int topN = Integer.parseInt(topNumber);
+        try{
+            topN = Integer.parseInt(topNumber);
+        }catch(Exception e){
+            System.out.println("Error, number field incorrect");
+        }
+
         if(area.equals("world"))
         {
             countries = getWorldTopCountries();
@@ -1245,24 +1224,24 @@ public class App
             report.populationOutOfCities = "" + ruralPopulation + "(" + (100f / totalPopulation * ruralPopulation) + "%)";
             reports.add(report);
         }
+
+        if(type.equals("district"))
+        {
+            cities = getDistrictPopulations(name);
+            for (City city : cities)
+            {
+                cityPopulation += city.population;
+            }
+            totalPopulation = cityPopulation;
+            report.name = name;
+            report.totalPopulation = "" + totalPopulation;
+            report.populationInCities = "" + cityPopulation + ("(100%)");
+            report.populationOutOfCities = "" + ruralPopulation + ("(0%)");
+            reports.add(report);
+        }
         return reports;
     }
 
-    /**
-     * Prints total population of given cities
-     * @param cities The list of cities
-     */
-    public void printTotalPopulationCities(ArrayList<City> cities)
-    {
-        //Total population
-        long totalPopulation = 0;
-        //Loop over all countries in the list
-        for (City city : cities)
-        {
-            totalPopulation = totalPopulation + city.population;
-        }
-        System.out.println("Total population is " + totalPopulation);
-    }
 
 
     class CapitalCityReport
@@ -1282,7 +1261,6 @@ public class App
     {
         CapitalCityReport report = new CapitalCityReport();
         report.Name = city.name;
-        country = getCountry(city.countryCode);
         report.Country = country.name;
         report.Population = city.population;
         return report;
@@ -1388,7 +1366,6 @@ public class App
     {
         CityReport report = new CityReport();
         report.Name = city.name;
-        country = getCountry(city.countryCode);
         report.Country = country.name;
         report.Population = city.population;
         report.District = city.district;

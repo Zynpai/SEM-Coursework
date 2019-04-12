@@ -43,7 +43,7 @@
         </form>
         <form action="/population_report.html">
             Population Report
-            <input list="typeCountry" name="type">
+            <input list="typeCity" name="type">
             <datalist id="typeCountry">
                 <option value="world">
                 <option value="continent">
@@ -56,21 +56,21 @@
         <h2>Country Reports</h2>
         <form action="/print_countries.html">
             All Countries
-            <input list="typeCountry" name="type">
+            <input list="typeCountry" name="area">
             <input type="text" name="name">
             <input type="submit" value="Get">
         </form>
         <form action="/print_top_countries.html">
             Top N Countries
-            <input type="text" name="top" value="5">
-            <input list="typeCountry" name="type">
+            <input type="number" name="topn" value="5" step="1">
+            <input list="typeCountry" name="area">
             <input type="text" name="name">
             <input type="submit" value="Get">
         </form>
         <h2>City Reports</h2>
         <form action="/print_cities.html">
             All Cities
-            <input list="typeCity" name="type">
+            <input list="typeCity" name="area">
             <datalist id="typeCity">
                 <option value="world">
                 <option value="continent">
@@ -83,22 +83,22 @@
         </form>
         <form action="/print_top_cities.html">
             Top N Cities
-            <input type="text" name="top" value="5">
-            <input list="typeCity" name="type">
+            <input type="number" name="topn" value="5" step="1">
+            <input list="typeCity" name="area">
             <input type="text" name="name">
             <input type="submit" value="Get">
         </form>
         <h2>Capital City Reports</h2>
         <form action="/print_capitals.html">
             All Capital Cities
-            <input list="typeCity" name="type">
+            <input list="typeCity" name="area">
             <input type="text" name="name">
             <input type="submit" value="Get">
         </form>
         <form action="/print_top_capitals.html">
             Top N Capital Cities
-            <input type="text" name="top" value="5">
-            <input list="typeCity" name="type">
+            <input type="number" name="topn" value="5" step="1">
+            <input list="typeCity" name="area">
             <input type="text" name="name">
             <input type="submit" value="Get">
         </form>

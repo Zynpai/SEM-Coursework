@@ -18,7 +18,6 @@ public class IntegrationTests {
 
     }
 
-
 //getCities
     @Test
     void emptytestgetcities(){
@@ -70,7 +69,6 @@ public class IntegrationTests {
         ArrayList<Country> pop = app.getCountryPopulations("");
         assertEquals(0,pop.size());
     }
-
 
 //getDistrictPopulations
     @Test
@@ -224,19 +222,293 @@ public class IntegrationTests {
         assertNotNull(pop);
     }
 
-
-//printTotalPopulationCities
+//getWorldPopulations
 
     @Test
-    void printTotalPopulationCitiesEmpty(){
-        ArrayList<City> pop = new ArrayList<>();
-        app.printTotalPopulationCities(pop);
+    void getWorldPopulationsTest(){
+        app.getWorldPopulations();
+    }
+
+
+//getWorldTopCities
+
+    @Test
+    void getWorldTopCitiesTest(){
+        app.getWorldTopCities();
+    }
+
+
+//getContinentTopCities
+
+    @Test
+    void getContinentTopCitiesEmpty(){
+        app.getContinentTopCities("");
     }
     @Test
-    void printTotalPopulationCitiesReal(){
-        ArrayList<City> pop = app.getRegionTopCapitalCities("Eastern Europe");
-        app.printTotalPopulationCities(pop);
+    void getContinentTopCitiesGarbage(){
+        app.getContinentTopCities("jkdfhakjsdh");
     }
+    @Test
+    void getContinentTopCitiesReal(){
+        app.getContinentTopCities("Europe");
+    }
+
+
+//getRegionTopCities
+
+
+    @Test
+    void getRegionTopCitiesEmpty(){
+        app.getRegionTopCities("");
+    }
+    @Test
+    void getRegionTopCitiesGarbage(){
+        app.getRegionTopCities("jkdfhakjsdh");
+    }
+    @Test
+    void getRegionTopCitiesReal(){
+        app.getRegionTopCities("Eastern Europe");
+    }
+
+//getCountryTopCities
+
+
+    @Test
+    void getCountryTopCitiesEmpty(){
+        app.getCountryTopCities("");
+    }
+    @Test
+    void getCountryTopCitiesGarbage(){
+        app.getCountryTopCities("jkdfhakjsdh");
+    }
+    @Test
+    void getCountryTopCitiesReal(){
+        app.getCountryTopCities("France");
+    }
+
+//getDistrictTopCities
+
+
+    @Test
+    void getDistrictTopCitiesEmpty(){
+        app.getDistrictTopCities("");
+    }
+    @Test
+    void getDistrictTopCitiesGarbage(){
+        app.getDistrictTopCities("jkdfhakjsdh");
+    }
+    @Test
+    void getDistrictTopCitiesReal(){
+        app.getDistrictTopCities("Moscow (City)");
+    }
+
+
+//getCountryLanguages
+
+    @Test
+    void getCountryLanguagesEmpty(){
+        app.getCountryLanguages("");
+    }
+    @Test
+    void getCountryLanguagesGarbage(){
+        app.getCountryLanguages("jkdfhakjsdh");
+    }
+    @Test
+    void getCountryLanguagesReal(){
+        app.getCountryLanguages("French");
+    }
+
+//printMajorLanguages
+
+    @Test
+    void printMajorLanguagesTest(){
+        app.printMajorLanguages();
+    }
+
+//printCountriesIn
+
+    @Test
+    void printCountriesInEmpty(){
+        app.printCountriesIn("","");
+    }
+    @Test
+    void printCountriesInGarbage1(){
+        app.printCountriesIn("ikfhkash","");
+    }
+    @Test
+    void printCountriesInGarbage2(){
+        app.printCountriesIn("","afasoudf");
+    }
+    @Test
+    void printCountriesInGarbage3(){
+        app.printCountriesIn("kljdsl","afasoudf");
+    }
+    @Test
+    void printCountriesInGarbage4(){
+        app.printCountriesIn("world","afasoudf");
+    }
+    @Test
+    void printCountriesInGarbage5(){
+        app.printCountriesIn("region","afasoudf");
+    }
+    @Test
+    void printCountriesInGarbage6(){
+        app.printCountriesIn("continent","afasoudf");
+    }
+    @Test
+    void printCountriesInEmpty2(){
+        app.printCountriesIn("continent","");
+    }
+    @Test
+    void printCountriesInEmpty3(){
+        app.printCountriesIn("region","");
+    }
+    @Test
+    void printCountriesInReal1(){
+        app.printCountriesIn("world","");
+    }
+    @Test
+    void printCountriesInReal2(){
+        app.printCountriesIn("continent","Europe");
+    }
+    @Test
+    void printCountriesInReal3(){
+        app.printCountriesIn("region","Eastern Europe");
+    }
+
+//printTopCountries
+
+    @Test
+    void printTopCountriesEmpty(){
+        app.printTopCountries("" ,"","");
+    }
+    @Test
+    void printTopCountriesGarbage1(){
+        app.printTopCountries("","ikfhkash","");
+    }
+    @Test
+    void printTopCountriesGarbage2(){
+        app.printTopCountries("","","afasoudf");
+    }
+    @Test
+    void printTopCountriesGarbage3(){
+        app.printTopCountries("","kljdsl","afasoudf");
+    }
+    @Test
+    void printTopCountriesGarbage4(){
+        app.printTopCountries("","world","afasoudf");
+    }
+    @Test
+    void printTopCountriesGarbage5(){
+        app.printTopCountries("","region","afasoudf");
+    }
+    @Test
+    void printTopCountriesGarbage6(){
+        app.printTopCountries("","continent","afasoudf");
+    }
+    @Test
+    void printTopCountriesEmpty2(){
+        app.printTopCountries("","continent","");
+    }
+    @Test
+    void printTopCountriesEmpty3(){
+        app.printTopCountries("","region","");
+    }
+    @Test
+    void printTopCountriesReal1(){
+        app.printTopCountries("3","world","");
+    }
+    @Test
+    void printTopCountriesReal2(){
+        app.printTopCountries("3","continent","Europe");
+    }
+    @Test
+    void printTopCountriesReal3(){
+        app.printTopCountries("3","region","Eastern Europe");
+    }
+
+
+//printPopulationReport
+
+    @Test
+    void printPopulationReportEmpty(){
+        app.printPopulationReport("","");
+    }
+    @Test
+    void printPopulationReportGarbage1(){
+        app.printPopulationReport("ikfhkash","");
+    }
+    @Test
+    void printPopulationReportGarbage2(){
+        app.printPopulationReport("","afasoudf");
+    }
+    @Test
+    void printPopulationReportGarbage3(){
+        app.printPopulationReport("kljdsl","afasoudf");
+    }
+    @Test
+    void printPopulationReportGarbage4(){
+        app.printPopulationReport("world","afasoudf");
+    }
+    @Test
+    void printPopulationReportGarbage5(){
+        app.printPopulationReport("region","afasoudf");
+    }
+    @Test
+    void printPopulationReportGarbage6(){
+        app.printPopulationReport("continent","afasoudf");
+    }
+    @Test
+    void printPopulationReportGarbage7(){
+        app.printPopulationReport("country","afasoudf");
+    }
+    @Test
+    void printPopulationReportEmpty2(){
+        app.printPopulationReport("country","");
+    }
+    @Test
+    void printPopulationReportEmpty3(){
+        app.printPopulationReport("continent","");
+    }
+    @Test
+    void printPopulationReportEmpty4(){
+        app.printPopulationReport("region","");
+    }
+    @Test
+    void printPopulationReportReal1(){
+        app.printPopulationReport("world","");
+    }
+    @Test
+    void printPopulationReportReal2(){
+        app.printPopulationReport("continent","Europe");
+    }
+    @Test
+    void printPopulationReportReal3(){
+        app.printPopulationReport("region","Eastern Europe");
+    }
+    @Test
+    void printPopulationReportReal4(){
+        app.printPopulationReport("country","France");
+    }
+
+//printCapitalCity
+
+    @Test
+    void printCapitalCityTest(){
+        City city = app.getCapitalCity(2974);
+        Country country = app.getCountry("FRA");
+        app.printCapitalCity(city,country);
+    }
+
+//printCity
+
+    @Test
+    void printCityTest(){
+        City city = app.getCapitalCity(2974);
+        Country country = app.getCountry("FRA");
+        app.printCity(city,country);
+    }
+
 
 
 }
