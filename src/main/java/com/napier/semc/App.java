@@ -1194,10 +1194,6 @@ public class App
         {
             countries = getCountryPopulations(name);
         }
-        else if (type.equals("district"))
-        {
-            cities = getDistrictPopulations(name);
-        }
         else
         {
             System.out.println("Error invalid usage, Aborting...");
@@ -1221,8 +1217,10 @@ public class App
             report.populationOutOfCities = "" + ruralPopulation + "(" + (100f / totalPopulation * ruralPopulation) + "%)";
             reports.add(report);
         }
-        else if(valid && cities != null)
+
+        if(type.equals("district"))
         {
+            cities = getDistrictPopulations(name);
             for (City city : cities)
             {
                 cityPopulation += city.population;
@@ -1230,9 +1228,8 @@ public class App
             totalPopulation = cityPopulation;
             report.name = name;
             report.totalPopulation = "" + totalPopulation;
-            report.populationInCities = "" + cityPopulation + "(" + (100f) + "%)";
-            report.populationOutOfCities = "" + ruralPopulation + "(" + (0f) + "%)";
-            reports.add(report);
+            report.populationInCities = "" + cityPopulation + ("100%");
+            report.populationOutOfCities = "" + ruralPopulation + ("0%");
         }
         return reports;
     }
@@ -1255,7 +1252,6 @@ public class App
     {
         CapitalCityReport report = new CapitalCityReport();
         report.Name = city.name;
-        country = getCountry(city.countryCode);
         report.Country = country.name;
         report.Population = city.population;
         return report;
@@ -1361,7 +1357,6 @@ public class App
     {
         CityReport report = new CityReport();
         report.Name = city.name;
-        country = getCountry(city.countryCode);
         report.Country = country.name;
         report.Population = city.population;
         report.District = city.district;
